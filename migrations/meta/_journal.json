@@ -15,6 +15,13 @@
       "when": 1758443674403,
       "tag": "0001_flimsy_shadowcat",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787099350170,
+      "tag": "0002_steady_nova",
+      "breakpoints": true
     }
   ]
 }

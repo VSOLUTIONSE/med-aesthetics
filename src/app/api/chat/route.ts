@@ -14,27 +14,25 @@ import { searchDocuments } from "@/lib/search";
 
 const tools = {
   searchKnowledgeBase: tool({
-    description: "Search the knowledge base for relevant information",
+    description: "Search the Aura MedSpa knowledge base for relevant clinic details, treatments, pricing, and policies.",
     inputSchema: z.object({
-      query: z.string().describe("The search query to find relevant documents"),
+      query: z.string().describe("The semantic search query to find documents"),
     }),
     execute: async ({ query }) => {
       try {
-        // Search the vector database
-        const results = await searchDocuments(query, 3, 0.5);
+        // Search the vector database for matching chunks
+        const results = await searchDocuments(query, 4, 0.4);
 
         if (results.length === 0) {
           return "No relevant information found in the knowledge base.";
         }
 
-        // Format results for the AI
-        const formattedResults = results
-          .map((r, i) => `[${i + 1}] ${r.content}`)
+        // Format retrieved documents for the AI model
+        return results
+          .map((r, i) => `[Source Document ${i + 1}]\n${r.content}`)
           .join("\n\n");
-
-        return formattedResults;
       } catch (error) {
-        console.error("Search error:", error);
+        console.error("Search error in knowledge base:", error);
         return "Error searching the knowledge base.";
       }
     },
@@ -49,13 +47,18 @@ export async function POST(req: Request) {
     const { messages }: { messages: ChatMessage[] } = await req.json();
 
     const result = streamText({
-      model: openai("gpt-5-mini"),
-      messages: convertToModelMessages(messages),
+      model: openai("gpt-4o-mini"),
+      messages: await convertToModelMessages(messages),
       tools,
-      system: `You are a helpful assistant with access to a knowledge base. 
-          When users ask questions, search the knowledge base for relevant information.
-          Always search before answering if the question might relate to uploaded documents.
-          Base your answers on the search results when available. Give concise answers that correctly answer what the user is asking for. Do not flood them with all the information from the search results.`,
+      system: `You are the AI Assistant for MedAesthetics Bristol, a premium clinical facial aesthetics and skin rejuvenation clinic in Bristol.
+      
+      CRITICAL INSTRUCTIONS:
+      1. You must search the knowledge base for EVERY inquiry using the 'searchKnowledgeBase' tool.
+      2. You are ONLY allowed to answer questions using the facts retrieved from the 'searchKnowledgeBase' tool. Do NOT use any external or training-data knowledge about medical treatments, procedures, pricing, or locations.
+      3. If the user's query cannot be answered using the retrieved context from the search results, or if the search returned no relevant facts, you must politely refuse to answer using this exact guideline:
+         "I am sorry, but I can only answer questions related to MedAesthetics Bristol's services, pricing, and procedures based on our official knowledge base. For further details, please contact our clinic at 0117 123 4567 or book an in-person consultation."
+      4. Never make up or assume any facts. If a price, duration, or doctor name is not explicitly mentioned in the search results, state that the information is not available in the knowledge base and suggest they contact the desk.
+      5. Keep responses concise, warm, professional, and directly focused on the retrieved facts.`,
       stopWhen: stepCountIs(2),
     });
 

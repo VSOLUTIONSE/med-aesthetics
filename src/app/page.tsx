@@ -1,103 +1,424 @@
-import Image from "next/image";
+"use client";
 
+import React from "react";
+import { ArrowRight, Check, MessageCircle, Sparkles } from "lucide-react";
+import { NavBar } from "./Navbar";
+import { Footer } from "./Footer";
+import { MedspaAssistant } from "./MedspaAssistant";
+import { TrustReassurance } from "./TrustReassurance";
+import { TreatmentCard } from "./TreatmentCard";
+const principles = [
+  {
+    number: "01",
+    title: "Listen first",
+    text: "We take time to understand what you want to change, and what you want to keep entirely your own.",
+  },
+  {
+    number: "02",
+    title: "Recommend carefully",
+    text: "Thoughtful, evidence-led advice — never a sales pitch and never more treatment than you need.",
+  },
+  {
+    number: "03",
+    title: "Keep it personal",
+    text: "Your face, your pace, your plan. Every recommendation is shaped around your features and your life.",
+  },
+  {
+    number: "04",
+    title: "Support your decision",
+    text: "You will leave with clear information and space to decide. There is no pressure to proceed.",
+  },
+];
+const steps = [
+  {
+    number: "1",
+    title: "Tell us",
+    text: "Share what has been on your mind using our simple booking form or by getting in touch.",
+  },
+  {
+    number: "2",
+    title: "Have a proper conversation",
+    text: "Meet with an experienced practitioner for a calm, unrushed consultation tailored to you.",
+  },
+  {
+    number: "3",
+    title: "Choose your next step",
+    text: "If treatment feels right, we will make a considered plan together. If not, that is okay too.",
+  },
+];
+const reassurance = [
+  "Experienced professionals",
+  "Personalised consultations",
+  "Clear treatment information",
+  "Patient-led decision-making",
+  "FaceConsent booking",
+];
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-[#F7F2E8] text-[#1E2833]">
+      <div className="bg-[#082C52] px-4 py-2.5 text-center text-[11px] font-medium tracking-[0.12em] text-[#C8A45A] sm:text-xs">
+        <span>Now welcoming new consultation appointments in Bristol. </span>
+        <a
+          href="#booking"
+          className="underline underline-offset-4 hover:text-white"
+        >
+          Book a consultation
+        </a>
+      </div>
+      <NavBar />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <main>
+        <section
+          className="grid min-h-[680px] lg:grid-cols-2"
+          aria-labelledby="hero-heading"
+        >
+          <div className="flex items-center px-6 py-20 sm:px-12 lg:px-[10vw] lg:py-24">
+            <div className="max-w-xl">
+              <div className="mb-7 flex items-center gap-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C8A45A]">
+                <span>Bespoke aesthetics in Bristol</span>
+              </div>
+              <h1
+                id="hero-heading"
+                className="max-w-[620px] text-5xl leading-[0.95] tracking-[-0.03em] text-[#0E3F73] sm:text-6xl lg:text-7xl"
+              >
+                Clinical expertise.{" "}
+                <em className="font-normal">Beautiful results.</em>
+              </h1>
+              <p className="mt-8 max-w-lg text-base leading-[1.8] text-[#1E2833]/85">
+                MedAesthetics Bristol offers advanced facial aesthetic and skin
+                rejuvenation treatments in a calm, professional setting. Every
+                treatment journey begins with understanding your goals, your
+                features, and what feels right for you.
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="#booking"
+                  className="inline-flex items-center justify-center gap-3 bg-[#0E3F73] px-7 py-3.5 text-sm font-medium text-white transition hover:bg-[#082C52] rounded-full"
+                >
+                  Book a consultation <ArrowRight size={16} />
+                </a>
+                <a
+                  href="#treatments"
+                  className="inline-flex items-center justify-center border border-[#0E3F73] px-7 py-3.5 text-sm font-medium text-[#0E3F73] transition hover:bg-[#0E3F73] hover:text-white rounded-full"
+                >
+                  Explore treatments
+                </a>
+              </div>
+              <div className="mt-10 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-medium uppercase tracking-[0.13em] text-[#0E3F73]/70">
+                <span>✦ Personalised consultations</span>
+                <span>✦ Safety-led care</span>
+                <span>✦ Experienced professionals</span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="relative min-h-[440px] overflow-hidden bg-[#D8D2C8]"
+            aria-label="Abstract warm editorial artwork suggesting calm, natural beauty"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_35%_35%,#f8e9d8_0%,#dfc6b2_38%,#b88e79_100%)]" />
+            <div className="absolute -left-20 top-16 h-[470px] w-[260px] rotate-[24deg] rounded-[55%] bg-[#f4dfc9]/80 blur-[1px]" />
+            <div className="absolute right-[-8%] top-[-8%] h-[520px] w-[340px] rotate-[-17deg] rounded-[55%] border-[36px] border-[#8f665f]/35" />
+            <div className="absolute bottom-[-20%] left-[35%] h-[490px] w-[190px] rotate-[36deg] rounded-[60%] bg-[#9e746a]/35" />
+            <div className="absolute bottom-9 left-8 border-l border-[#F7F2E8]/80 pl-4 text-[10px] uppercase tracking-[0.2em] text-[#F7F2E8]">
+              Quietly considered care
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="px-6 py-24 text-center sm:px-10 lg:py-36"
+          aria-labelledby="conversation-heading"
+        >
+          <div className="mx-auto mb-12 h-px w-20 bg-[#C8A45A]" />
+          <h2
+            id="conversation-heading"
+            className="mx-auto max-w-3xl text-4xl leading-tight tracking-[-0.02em] sm:text-5xl"
           >
-            Read our docs
+            You do not need to know the treatment name before you get in touch.
+          </h2>
+          <p className="mx-auto mt-7 max-w-[500px] text-base leading-8 text-[#1E2833]/75">
+            The best place to begin is with an honest conversation about what
+            you see, how you feel, and what you would like to explore. We will
+            help you find the language — and the options — that feel right.
+          </p>
+          <a
+            href="#consultation"
+            className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#0E3F73] underline decoration-[#C8A45A] decoration-2 underline-offset-8 hover:text-[#C8A45A]"
+          >
+            Learn about your consultation{" "}
+            <ArrowRight size={16} className="text-[#C8A45A]" />
           </a>
-        </div>
+        </section>
+
+        <section
+          id="treatments"
+          className="bg-[#EAF1F7] px-6 py-24 sm:px-10 lg:px-[8vw] lg:py-32"
+          aria-labelledby="treatments-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-14 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+              <div>
+                <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C8A45A]">
+                  Ways we can help
+                </p>
+                <h2
+                  id="treatments-heading"
+                  className="max-w-2xl text-4xl leading-tight sm:text-5xl"
+                >
+                  Care that starts with what matters to you.
+                </h2>
+              </div>
+              <a
+                href="#consultation"
+                className="text-sm font-medium text-[#0E3F73] underline decoration-[#C8A45A] underline-offset-4"
+              >
+                View all treatments <span aria-hidden="true">→</span>
+              </a>
+            </div>
+            <div className="grid gap-5 md:grid-cols-3">
+              <TreatmentCard
+                title="Anti-wrinkle injections"
+                description="Subtle, precise treatment to soften the appearance of expression lines while keeping you looking like yourself."
+                priceFrom="£195"
+                duration="30–45 mins"
+                imageUrl="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1000&auto=format&fit=crop"
+              />
+              <TreatmentCard
+                title="Dermal fillers"
+                description="Carefully considered volume and definition to restore balance, structure and a refreshed, natural look."
+                priceFrom="£250"
+                duration="45–60 mins"
+                imageUrl="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1000&auto=format&fit=crop"
+              />
+              <TreatmentCard
+                title="Skin rejuvenation"
+                description="Evidence-led treatments that support healthier, brighter skin and a complexion that feels more confident."
+                priceFrom="£150"
+                duration="30–60 mins"
+                imageUrl="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1000&auto=format&fit=crop"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="bg-[#0E3F73] px-6 py-24 text-white sm:px-10 lg:px-[8vw] lg:py-32"
+          aria-labelledby="approach-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#C8A45A]">
+                The MedAesthetics approach
+              </p>
+              <h2
+                id="approach-heading"
+                className="text-4xl leading-tight text-white sm:text-5xl"
+              >
+                A considered approach to facial aesthetics.
+              </h2>
+              <p className="mt-6 leading-7 text-white/70">
+                Good aesthetic care is not about chasing perfection. It is about
+                expert guidance, clear choices and results that still feel like
+                you.
+              </p>
+            </div>
+            <div className="mt-16 grid gap-10 border-t border-white/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+              {principles.map((principle) => (
+                <article key={principle.number}>
+                  <span className="text-sm text-[#C8A45A]">
+                    {principle.number}
+                  </span>
+                  <h3 className="mt-5 text-2xl text-[#C8A45A]">
+                    {principle.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-white/75">
+                    {principle.text}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="consultation"
+          className="px-6 py-24 sm:px-10 lg:px-[8vw] lg:py-32"
+          aria-labelledby="steps-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-2xl">
+              <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#C8A45A]">
+                Your next step
+              </p>
+              <h2
+                id="steps-heading"
+                className="text-4xl leading-tight sm:text-5xl"
+              >
+                From your first question to your consultation.
+              </h2>
+            </div>
+            <div className="mt-16 grid gap-10 md:grid-cols-3">
+              {steps.map((step) => (
+                <article
+                  key={step.number}
+                  className="relative border-t border-[#C8A45A] pt-6"
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#C8A45A] text-sm font-medium text-white">
+                    {step.number}
+                  </span>
+                  <h3 className="mt-6 text-2xl">{step.title}</h3>
+                  <p className="mt-3 max-w-xs text-sm leading-7 text-[#1E2833]/75">
+                    {step.text}
+                  </p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-14 text-center">
+              <a
+                href="#booking"
+                className="inline-flex items-center gap-3 bg-[#0E3F73] px-8 py-4 text-sm font-medium text-white hover:bg-[#082C52] rounded-full"
+              >
+                Book your consultation <ArrowRight size={16} />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="bg-[#EAF1F7] px-6 py-20 text-center sm:px-10 lg:py-28"
+          aria-labelledby="reassurance-heading"
+        >
+          <div className="mx-auto max-w-4xl">
+            <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#C8A45A]">
+              Reassurance, at every stage
+            </p>
+            <h2 id="reassurance-heading" className="text-4xl sm:text-5xl">
+              You deserve clear answers before you decide.
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl leading-7 text-[#1E2833]/75">
+              Our role is to give you the context, care and confidence to make a
+              decision that feels entirely your own.
+            </p>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              {reassurance.map((item) => (
+                <span
+                  key={item}
+                  className="inline-flex items-center gap-2 border border-[#C8A45A]/60 bg-[#F7F2E8] px-4 py-3 text-xs font-medium text-[#0E3F73] rounded-full"
+                >
+                  <Check size={14} className="text-[#C8A45A]" />
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="px-6 py-24 sm:px-10 lg:px-[8vw] lg:py-32"
+          aria-labelledby="assistant-heading"
+        >
+          <div className="mx-auto grid max-w-7xl items-center gap-12 border-l-4 border-[#C8A45A] bg-white/50 px-7 py-10 sm:px-12 lg:grid-cols-2 lg:gap-20 lg:px-16 lg:py-16">
+            <div>
+              <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#C8A45A]">
+                Here to help
+              </p>
+              <h2
+                id="assistant-heading"
+                className="max-w-md text-4xl leading-tight sm:text-5xl"
+              >
+                Have a question before you book?
+              </h2>
+              <p className="mt-6 max-w-md leading-7 text-[#1E2833]/75">
+                Our Medspa Assistant can help you explore treatments, understand
+                the consultation process, or simply point you in the right
+                direction.
+              </p>
+              <button
+                type="button"
+                className="mt-8 inline-flex items-center gap-3 bg-[#C8A45A] px-6 py-3.5 text-sm font-medium text-white hover:bg-[#b18f4c] rounded-full"
+                onClick={() =>
+                  window.dispatchEvent(new CustomEvent("open-medspa-assistant"))
+                }
+              >
+                Ask the Medspa Assistant <MessageCircle size={16} />
+              </button>
+            </div>
+            <div className="max-w-md rounded-2xl border border-[#D8D2C8] bg-white p-5 shadow-sm">
+              <div className="flex items-center gap-3 border-b border-[#EAF1F7] pb-4">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#C8A45A] text-white">
+                  <Sparkles size={16} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-[#0E3F73]">
+                    MedAesthetics Assistant
+                  </p>
+                  <p className="text-xs text-[#1E2833]/60">
+                    Here to answer your questions
+                  </p>
+                </div>
+              </div>
+              <p className="mt-5 max-w-xs rounded-tl-none rounded-lg bg-[#EAF1F7] p-4 text-sm leading-6 text-[#0E3F73]">
+                Hi, I&apos;m the MedAesthetics Assistant. What would you like to
+                know?
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  className="border border-[#D8D2C8] px-3 py-2 text-xs text-[#0E3F73] hover:border-[#C8A45A] rounded-full"
+                >
+                  Treatments
+                </button>
+                <button
+                  type="button"
+                  className="border border-[#D8D2C8] px-3 py-2 text-xs text-[#0E3F73] hover:border-[#C8A45A] rounded-full"
+                >
+                  The consultation
+                </button>
+                <button
+                  type="button"
+                  className="border border-[#D8D2C8] px-3 py-2 text-xs text-[#0E3F73] hover:border-[#C8A45A] rounded-full"
+                >
+                  Pricing
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="booking"
+          className="bg-[#082C52] px-6 py-24 text-center text-white sm:px-10 lg:py-32"
+        >
+          <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#C8A45A]">
+            Begin somewhere simple
+          </p>
+          <h2 className="text-5xl leading-tight text-white sm:text-6xl">
+            Start with a conversation.
+          </h2>
+          <p className="mx-auto mt-6 max-w-lg leading-7 text-white/75">
+            Bring your questions, your hopes, or simply your curiosity. We will
+            meet you there.
+          </p>
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+            <a
+              href="#consultation"
+              className="bg-[#C8A45A] px-7 py-3.5 text-sm font-medium text-white hover:bg-[#b18f4c] rounded-full"
+            >
+              Book a consultation
+            </a>
+            <a
+              href="#footer"
+              className="border border-white/70 px-7 py-3.5 text-sm font-medium text-white hover:bg-white hover:text-[#082C52] rounded-full"
+            >
+              Contact the clinic
+            </a>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <div id="footer">
+        <Footer />
+      </div>
+      <MedspaAssistant />
     </div>
   );
 }
