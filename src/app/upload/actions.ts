@@ -2,6 +2,7 @@
 "use server";
 
 import pdf from "pdf-parse";
+import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db-config";
 import { documents } from "@/lib/db-schema";
 import { generateEmbeddings } from "@/lib/embeddings";
@@ -9,6 +10,15 @@ import { chunkContent } from "@/lib/chunking";
 
 export async function processPdfFile(formData: FormData) {
   try {
+    const { sessionClaims } = await auth();
+
+    if (sessionClaims?.metadata?.role !== "admin") {
+      return {
+        success: false,
+        error: "Not authorized. Admin access required.",
+      };
+    }
+
     const file = formData.get("pdf") as File;
 
     // Convert File to Buffer and extract text
