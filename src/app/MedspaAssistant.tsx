@@ -40,7 +40,7 @@ export const MedspaAssistant: React.FC = () => {
   const isLoading = status === "submitted" || status === "streaming";
 
   // Find the last user message index
-  const lastUserIdx = messages.findLastIndex((m) => m.role === "user");
+  const lastUserIdx = messages.findLastIndex((m) => (m.role as string) === "user");
 
   // Check if any assistant message after the last user message has text
   const hasResponseText = messages.some(
@@ -140,7 +140,7 @@ export const MedspaAssistant: React.FC = () => {
               className="flex flex-col gap-3 p-4"
             >
               {messages.map((message, index) => {
-                const isUser = message.role === "user";
+                const isUser = (message.role as string) === "user";
                 // Skip assistant messages with no text that are after the last user message
                 if (!isUser && index > lastUserIdx) {
                   const hasText = message.parts.some(
