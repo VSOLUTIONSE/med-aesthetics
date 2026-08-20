@@ -141,13 +141,27 @@ export const MedspaAssistant: React.FC = () => {
             >
               {messages.map((message, index) => {
                 const isUser = (message.role as string) === "user";
-                // Skip assistant messages with no text that are after the last user message
-                if (!isUser && index > lastUserIdx) {
+                // Skip streaming assistant messages with no text yet
+                if (!isUser && index > lastUserIdx && status !== "ready") {
                   const hasText = message.parts.some(
                     (p) => p.type === "text" && p.text.trim().length > 0
                   );
                   if (!hasText) return null;
                 }
+
+                // Extract text content for this message
+                const textParts = message.parts
+                  .filter((p) => p.type === "text")
+                  .map((p) => p.text)
+                  .join("");
+                const hasContent = textParts.trim().length > 0;
+
+                // Fallback for empty assistant responses (after streaming is done)
+                const displayText =
+                  !isUser && !hasContent && status === "ready"
+                    ? "I'm sorry, something went wrong. Please try again and I'll do my best to help!"
+                    : textParts;
+
                 return (
                   <div
                     key={message.id}
@@ -160,16 +174,9 @@ export const MedspaAssistant: React.FC = () => {
                           : "rounded-bl-md border border-[#EAF1F7] bg-white text-[#1E2833] shadow-sm"
                       }`}
                     >
-                      {message.parts.map((part, i) => {
-                        if (part.type !== "text") return null;
-                        return (
-                          <Fragment key={`${message.id}-${i}`}>
-                            <Response className="[&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
-                              {part.text}
-                            </Response>
-                          </Fragment>
-                        );
-                      })}
+                      <Response className="[&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+                        {displayText}
+                      </Response>
                     </div>
                   </div>
                 );

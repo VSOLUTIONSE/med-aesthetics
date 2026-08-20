@@ -1,7 +1,7 @@
 // src/app/chat/page.tsx
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import {
   Conversation,
@@ -40,33 +40,39 @@ export default function RAGChatBot() {
       <div className="flex flex-col h-full">
         <Conversation className="h-full">
           <ConversationContent className="space-y-3">
-            {messages.map((message) => (
-              <div key={message.id}>
-                {message.parts.map((part, i) => {
-                  switch (part.type) {
-                    case "text":
-                      return (
-                        <Fragment key={`${message.id}-${i}`}>
-                          <Message from={message.role}>
-                            <MessageContent
-                              variant="flat"
-                              className={
-                                message.role === "user"
-                                  ? "bg-[#C8A45A] text-white max-w-[80%] ml-auto px-4 py-3 rounded-2xl rounded-br-md"
-                                  : "bg-white border border-[#EAF1F7] text-[#1E2833] px-4 py-3 rounded-2xl rounded-bl-md"
-                              }
-                            >
-                              <Response>{part.text}</Response>
-                            </MessageContent>
-                          </Message>
-                        </Fragment>
-                      );
-                    default:
-                      return null;
-                  }
-                })}
-              </div>
-            ))}
+            {messages.map((message) => {
+              const isUser = message.role === "user";
+              const textParts = message.parts
+                .filter((p) => p.type === "text")
+                .map((p) => p.text)
+                .join("");
+              const hasContent = textParts.trim().length > 0;
+
+              // Fallback for empty assistant responses
+              const displayText =
+                !isUser && !hasContent && status === "ready"
+                  ? "I'm sorry, something went wrong. Please try again and I'll do my best to help!"
+                  : textParts;
+
+              return (
+                <div key={message.id}>
+                  {displayText && (
+                    <Message from={message.role}>
+                      <MessageContent
+                        variant="flat"
+                        className={
+                          isUser
+                            ? "bg-[#C8A45A] text-white max-w-[80%] ml-auto px-4 py-3 rounded-2xl rounded-br-md"
+                            : "bg-white border border-[#EAF1F7] text-[#1E2833] px-4 py-3 rounded-2xl rounded-bl-md"
+                        }
+                      >
+                        <Response>{displayText}</Response>
+                      </MessageContent>
+                    </Message>
+                  )}
+                </div>
+              );
+            })}
             {(status === "submitted" || status === "streaming") && (
               <div className="flex justify-start">
                 <div className="flex items-center gap-2 rounded-2xl rounded-bl-md border border-[#EAF1F7] bg-white px-4 py-3 shadow-sm">
