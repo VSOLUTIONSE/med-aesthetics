@@ -12,11 +12,16 @@ export async function searchDocuments(
   limit: number = 5,
   threshold: number = 0.5
 ) {
+  console.log("[Search] Starting search:", { query, limit, threshold });
+
   // Generate embedding for the search query
   const embedding = await generateEmbedding(query);
+  console.log("[Search] Embedding generated:", {
+    dimensions: embedding.length,
+    sampleValues: embedding.slice(0, 3),
+  });
 
   // Calculate similarity using Drizzle's cosineDistance function
-  // This creates a SQL expression for similarity calculation
   const similarity = sql<number>`1 - (${cosineDistance(
     documents.embedding,
     embedding
@@ -33,6 +38,17 @@ export async function searchDocuments(
     .where(gt(similarity, threshold))
     .orderBy(desc(similarity))
     .limit(limit);
+
+  console.log("[Search] Results:", {
+    query,
+    count: similarDocuments.length,
+    threshold,
+    results: similarDocuments.map((r) => ({
+      id: r.id,
+      similarity: Number(r.similarity?.toFixed(4)),
+      contentPreview: r.content.substring(0, 80),
+    })),
+  });
 
   return similarDocuments;
 }

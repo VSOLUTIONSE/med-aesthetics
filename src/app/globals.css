@@ -120,3 +120,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Chat widget streaming text colors */
+.prose-no-spacing p {
+  margin: 0;
+  color: inherit;
+}
+.prose-no-spacing p + p {
+  margin-top: 0.5em;
+}
+
+/* Subtle scrollbar for chat widget */
+.chat-scroll [data-slot="scroll-area-thumb"] {
+  background: rgba(14, 63, 115, 0.12);
+}
+.chat-scroll [data-slot="scroll-area-thumb"]:hover {
+  background: rgba(14, 63, 115, 0.22);
+}

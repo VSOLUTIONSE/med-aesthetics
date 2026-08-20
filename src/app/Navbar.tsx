@@ -1,33 +1,32 @@
 "use client";
 
 import React from "react";
-import { Menu, X, Calendar } from "lucide-react";
+import { Menu, X, Calendar, MapPin } from "lucide-react";
+
 export const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+
   const navLinks = [
-    {
-      name: "Home",
-      href: "#",
-    },
-    {
-      name: "Treatments",
-      href: "#",
-    },
-    {
-      name: "Your Consultation",
-      href: "#",
-    },
-    {
-      name: "About",
-      href: "#",
-    },
-    {
-      name: "Contact",
-      href: "#",
-    },
+    { name: "Home", href: "#" },
+    { name: "Treatments", href: "#" },
+    { name: "Your Consultation", href: "#" },
+    { name: "About", href: "#" },
+    { name: "Contact", href: "#" },
   ];
+
   return (
     <nav className="sticky top-0 z-50 bg-[#0E3F73] shadow-md">
+      {/* Top bar with address */}
+      <div className="border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] text-white/50">
+            <MapPin size={10} className="shrink-0" />
+            <span>Acer Village, Bristol, BS4 0DF, UK</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main nav */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}

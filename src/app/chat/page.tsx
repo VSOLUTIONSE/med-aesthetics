@@ -39,7 +39,7 @@ export default function RAGChatBot() {
     <div className="max-w-4xl mx-auto p-6 relative size-full h-[calc(100vh-4rem)]">
       <div className="flex flex-col h-full">
         <Conversation className="h-full">
-          <ConversationContent>
+          <ConversationContent className="space-y-3">
             {messages.map((message) => (
               <div key={message.id}>
                 {message.parts.map((part, i) => {
@@ -48,7 +48,14 @@ export default function RAGChatBot() {
                       return (
                         <Fragment key={`${message.id}-${i}`}>
                           <Message from={message.role}>
-                            <MessageContent>
+                            <MessageContent
+                              variant="flat"
+                              className={
+                                message.role === "user"
+                                  ? "bg-[#C8A45A] text-white max-w-[80%] ml-auto px-4 py-3 rounded-2xl rounded-br-md"
+                                  : "bg-white border border-[#EAF1F7] text-[#1E2833] px-4 py-3 rounded-2xl rounded-bl-md"
+                              }
+                            >
                               <Response>{part.text}</Response>
                             </MessageContent>
                           </Message>
@@ -60,7 +67,14 @@ export default function RAGChatBot() {
                 })}
               </div>
             ))}
-            {(status === "submitted" || status === "streaming") && <Loader />}
+            {(status === "submitted" || status === "streaming") && (
+              <div className="flex justify-start">
+                <div className="flex items-center gap-2 rounded-2xl rounded-bl-md border border-[#EAF1F7] bg-white px-4 py-3 shadow-sm">
+                  <Loader size={14} className="text-[#0E3F73]" />
+                  <span className="text-xs text-[#0E3F73]/60">Thinking...</span>
+                </div>
+              </div>
+            )}
           </ConversationContent>
           <ConversationScrollButton />
         </Conversation>
@@ -70,12 +84,11 @@ export default function RAGChatBot() {
             <PromptInputTextarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask about treatments, pricing, booking..."
             />
           </PromptInputBody>
           <PromptInputToolbar>
-            <PromptInputTools>
-              {/* Model selector, web search, etc. */}
-            </PromptInputTools>
+            <PromptInputTools />
             <PromptInputSubmit disabled={!input && !status} status={status} />
           </PromptInputToolbar>
         </PromptInput>
