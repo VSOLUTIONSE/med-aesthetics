@@ -5,7 +5,6 @@ import {
   convertToModelMessages,
   tool,
   InferUITools,
-  UIDataTypes,
   stepCountIs,
 } from "ai";
 import { google } from "@ai-sdk/google";
@@ -44,7 +43,7 @@ const tools = {
 };
 
 export type ChatTools = InferUITools<typeof tools>;
-export type ChatMessage = UIMessage<never, UIDataTypes, ChatTools>;
+export type ChatMessage = UIMessage<unknown, never, ChatTools>;
 
 export async function POST(req: Request) {
   const startTime = Date.now();
@@ -54,14 +53,13 @@ export async function POST(req: Request) {
 
     console.log("[Chat] Request received:", {
       messageCount: messages.length,
-      lastMessage: messages[messages.length - 1]?.content?.substring(0, 100),
+      lastMessageParts: messages[messages.length - 1]?.parts?.length,
     });
 
     const result = streamText({
       model: google("gemini-3.6-flash"),
       messages: await convertToModelMessages(messages),
       tools,
-      chunking: { separator: /(?<=[.!?])\s+/ },
       system: `You are the friendly AI Assistant for MedAesthetics Bristol, a premium clinical facial aesthetics and skin rejuvenation clinic in Bristol.
 
 YOUR PERSONALITY:
@@ -78,13 +76,11 @@ CRITICAL INSTRUCTIONS:
 5. Keep responses short and helpful — aim for 2-3 sentences unless more detail is needed.
 6. End responses warmly where appropriate (e.g., "Let me know if you have any other questions!" or "Hope that helps!").`,
       stopWhen: stepCountIs(3),
-      onFinish: ({ text, toolCalls, toolResults }) => {
+      onEnd: ({ text }) => {
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
         console.log("[Chat] Response complete:", {
           elapsed: `${elapsed}s`,
           textLength: text?.length,
-          toolCallsCount: toolCalls?.length,
-          toolResultsCount: toolResults?.length,
         });
       },
     });
