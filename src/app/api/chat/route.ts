@@ -163,7 +163,7 @@ CRITICAL INSTRUCTIONS:
 
     const result = streamText({
       model: google("gemini-3.6-flash"),
-      messages: convertToModelMessages(messages),
+      messages: await convertToModelMessages(messages),
       tools: skipSearch ? {} : tools,
       system: systemPrompt,
       stopWhen: skipSearch ? undefined : stepCountIs(3),
