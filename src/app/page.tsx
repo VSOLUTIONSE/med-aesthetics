@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { ArrowRight, Check, MessageCircle, Sparkles } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { ArrowRight, Check, MessageCircle, Play, Sparkles } from "lucide-react";
 import { NavBar } from "./Navbar";
 import { Footer } from "./Footer";
 import { MedspaAssistant } from "./MedspaAssistant";
@@ -54,6 +54,30 @@ const reassurance = [
   "FaceConsent booking",
 ];
 export default function Home() {
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleVideo = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setVideoPlaying(true); } else { v.pause(); setVideoPlaying(false); }
+  };
+
+  // Pause video when clicking anywhere on the page
+  useEffect(() => {
+    const handleBodyClick = (e: MouseEvent) => {
+      const v = videoRef.current;
+      if (!v || v.paused) return;
+      const target = e.target as HTMLElement;
+      // Don't pause if clicking the play button or the video itself
+      if (target.closest("[data-play-btn]")) return;
+      if (target === v || v.contains(target)) return;
+      v.pause();
+      setVideoPlaying(false);
+    };
+    document.addEventListener("click", handleBodyClick);
+    return () => document.removeEventListener("click", handleBodyClick);
+  }, []);
   return (
     <div className="min-h-screen bg-[#F7F2E8] text-[#1E2833]">
       <div className="bg-[#082C52] px-4 py-2.5 text-center text-[11px] font-medium tracking-[0.12em] text-[#C8A45A] sm:text-xs">
@@ -69,17 +93,17 @@ export default function Home() {
 
       <main>
         <section
-          className="grid min-h-[680px] lg:grid-cols-2"
+          className="grid min-h-[320px] lg:min-h-[380px] lg:grid-cols-2 lg:gap-6 lg:px-6"
           aria-labelledby="hero-heading"
         >
-          <div className="flex items-center px-6 py-20 sm:px-12 lg:px-[10vw] lg:py-24">
+          <div className="flex items-center px-6 py-14 sm:px-12 lg:px-[10vw] lg:py-24">
             <div className="max-w-xl">
               <div className="mb-7 flex items-center gap-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C8A45A]">
                 <span>Bespoke aesthetics in Bristol</span>
               </div>
               <h1
                 id="hero-heading"
-                className="max-w-[620px] text-5xl leading-[0.95] tracking-[-0.03em] text-[#0E3F73] sm:text-6xl lg:text-7xl"
+                className="max-w-[620px] text-4xl leading-[0.95] tracking-[-0.03em] text-[#0E3F73] sm:text-5xl lg:text-7xl"
               >
                 Clinical expertise.{" "}
                 <em className="font-normal">Beautiful results.</em>
@@ -93,13 +117,13 @@ export default function Home() {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a
                   href="#booking"
-                  className="inline-flex items-center justify-center gap-3 bg-[#0E3F73] px-7 py-3.5 text-sm font-medium text-white transition hover:bg-[#082C52] rounded-full"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-[#0E3F73] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#082C52] rounded-full"
                 >
                   Book a consultation <ArrowRight size={16} />
                 </a>
                 <a
                   href="#treatments"
-                  className="inline-flex items-center justify-center border border-[#0E3F73] px-7 py-3.5 text-sm font-medium text-[#0E3F73] transition hover:bg-[#0E3F73] hover:text-white rounded-full"
+                  className="inline-flex items-center justify-center whitespace-nowrap border border-[#0E3F73] px-5 py-2.5 text-sm font-medium text-[#0E3F73] transition hover:bg-[#0E3F73] hover:text-white rounded-full"
                 >
                   Explore treatments
                 </a>
@@ -111,15 +135,26 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div
-            className="relative min-h-[440px] overflow-hidden bg-[#D8D2C8]"
-            aria-label="Abstract warm editorial artwork suggesting calm, natural beauty"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_35%_35%,#f8e9d8_0%,#dfc6b2_38%,#b88e79_100%)]" />
-            <div className="absolute -left-20 top-16 h-[470px] w-[260px] rotate-[24deg] rounded-[55%] bg-[#f4dfc9]/80 blur-[1px]" />
-            <div className="absolute right-[-8%] top-[-8%] h-[520px] w-[340px] rotate-[-17deg] rounded-[55%] border-[36px] border-[#8f665f]/35" />
-            <div className="absolute bottom-[-20%] left-[35%] h-[490px] w-[190px] rotate-[36deg] rounded-[60%] bg-[#9e746a]/35" />
-            <div className="absolute bottom-9 left-8 border-l border-[#F7F2E8]/80 pl-4 text-[10px] uppercase tracking-[0.2em] text-[#F7F2E8]">
+          <div data-hero-video className="relative mt-6 flex min-h-[220px] items-center justify-center overflow-hidden rounded-2xl bg-[#0E3F73] sm:rounded-3xl lg:mt-12 lg:min-h-[280px]">
+            <video
+              ref={videoRef}
+              src="https://zecdvcub3srmcwgz.public.blob.vercel-storage.com/hero-intro.mp4"
+              loop
+              playsInline
+              onClick={toggleVideo}
+              className="absolute inset-0 h-full w-full cursor-pointer object-cover"
+            />
+            <div data-play-overlay className={`absolute inset-0 bg-gradient-to-t from-[#0E3F73]/60 via-transparent to-[#0E3F73]/20 transition-opacity duration-500 ${videoPlaying ? "opacity-0 pointer-events-none" : ""}`} />
+            <button
+              data-play-btn
+              type="button"
+              onClick={toggleVideo}
+              className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-[#0E3F73] shadow-xl backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:shadow-2xl sm:h-14 sm:w-14 lg:h-16 lg:w-16 ${videoPlaying ? "opacity-0 pointer-events-none" : ""}`}
+              aria-label="Play video"
+            >
+              <Play size={22} className="ml-0.5" fill="currentColor" />
+            </button>
+            <div className="absolute bottom-4 left-4 z-10 border-l border-[#F7F2E8]/80 pl-3 text-[9px] uppercase tracking-[0.2em] text-[#F7F2E8] sm:bottom-6 sm:left-6 sm:pl-4 sm:text-[10px]">
               Quietly considered care
             </div>
           </div>
@@ -392,7 +427,7 @@ export default function Home() {
           <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#C8A45A]">
             Begin somewhere simple
           </p>
-          <h2 className="text-5xl leading-tight text-white sm:text-6xl">
+          <h2 className="text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
             Start with a conversation.
           </h2>
           <p className="mx-auto mt-6 max-w-lg leading-7 text-white/75">

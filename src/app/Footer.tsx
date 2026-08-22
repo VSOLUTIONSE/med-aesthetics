@@ -1,5 +1,6 @@
 import React from "react";
 import { Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   return (
@@ -8,9 +9,13 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="space-y-6">
-            <h2 className="font-['Cormorant_Garamond'] text-2xl font-semibold text-[#C8A45A] tracking-wider uppercase">
-              MedAesthetics <span className="font-light">Bristol</span>
-            </h2>
+            <Image
+              src="/img/logo.jpg"
+              alt="MedAesthetics Bristol"
+              width={140}
+              height={40}
+              className="h-10 w-auto rounded-full border-2 border-[#C8A45A] object-cover"
+            />
             <p className="text-white/70 text-sm leading-relaxed max-w-xs">
               Providing medical-led facial aesthetics and skin rejuvenation in
               the heart of Bristol. Our focus is safety, education, and natural

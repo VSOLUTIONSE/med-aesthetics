@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Menu, X, Calendar } from "lucide-react";
+import Image from "next/image";
 
 export const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -21,9 +22,14 @@ export const NavBar: React.FC = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <span className="font-['Cormorant_Garamond'] text-2xl font-semibold text-[#C8A45A] tracking-wider uppercase">
-              MedAesthetics <span className="font-light">Bristol</span>
-            </span>
+            <Image
+              src="/img/logo.jpg"
+              alt="MedAesthetics Bristol"
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-full border-2 border-[#C8A45A] object-cover"
+              priority
+            />
           </div>
 
           {/* Desktop Navigation */}

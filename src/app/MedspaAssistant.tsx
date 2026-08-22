@@ -59,6 +59,13 @@ export const MedspaAssistant: React.FC = () => {
     }
   }, [messages, status]);
 
+  // Listen for external open events (e.g. "Ask the Medspa Assistant" button)
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener("open-medspa-assistant", handleOpen);
+    return () => window.removeEventListener("open-medspa-assistant", handleOpen);
+  }, []);
+
   // Pop out hint 10s after load, then hide after 4s
   useEffect(() => {
     if (isOpen) return;

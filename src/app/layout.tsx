@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MedAesthetics Bristol — Facial Aesthetics & Skin Rejuvenation",
+  title: "MedAesthetics Bristol - Facial Aesthetics & Skin Rejuvenation",
   description:
     "Medical-led facial aesthetics and skin rejuvenation in the heart of Bristol. Personalised consultations, safety-led care, experienced professionals.",
 };
