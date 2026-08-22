@@ -98,11 +98,11 @@ RULES:
 - Always end warmly (e.g. "Let me know if you have any other questions!").
 
 LINKS:
-- Only include a booking link when the knowledge base contains a specific FaceConsent or booking URL for that exact treatment.
-- Match the URL to the correct treatment category — do NOT use a generic/all-category URL for a specific treatment.
-- If no specific booking URL is found for the treatment mentioned, do NOT include any link.
-- Use the exact URL from the knowledge base. Format: [Treatment name](exact-url)
-- Never invent or guess URLs. If unsure, omit the link.
+- When mentioning any treatment or service, include one booking link using the FaceConsent URL from the knowledge base.
+- All treatments share the same booking URL — use it once per response.
+- Format: [Book a consultation](exact-faceconsent-url-from-knowledge-base)
+- If no FaceConsent URL is found in the knowledge base, do NOT include any link.
+- Never invent or guess URLs.
 
 KNOWLEDGE BASE:
 ${searchContext || "No relevant documents found."}`;
