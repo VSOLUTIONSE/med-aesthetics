@@ -142,15 +142,16 @@ RULES:
 - Always end warmly (e.g. "Let me know if you have any other questions!").
 
 LINKS:
-When mentioning a specific treatment or service, include a clickable link to the relevant section:
-- Treatments overview: [Explore our treatments](#treatments)
-- Anti-wrinkle / Botox: [Learn more about anti-wrinkle treatment](#treatments)
-- Skin rejuvenation / Chemical peels / Microneedling: [Explore skin treatments](#treatments)
-- Consultation: [Book a consultation](#consultation)
+When mentioning a specific treatment or service, ALWAYS include a clickable link to book. Never mention a treatment without a booking reference:
+- Anti-wrinkle / Botox: [Book anti-wrinkle treatment](#booking)
+- Dermal fillers: [Book dermal fillers consultation](#booking)
+- Skin rejuvenation / Chemical peels / Microneedling: [Book skin treatment](#booking)
+- Consultation: [Book a consultation](#booking)
 - Pricing: [View pricing and book](#booking)
 - General booking: [Book your appointment](#booking)
 
-Format links naturally in your reply, e.g. "You can [book a consultation here](#consultation) or learn more about [our treatments](#treatments)."
+Format links naturally in your reply, e.g. "You can [book a consultation here](#consultation) or explore [our treatments](#treatments)."
+Every treatment mention MUST have a booking link.
 
 Search the knowledge base now using this query: "${searchQuery}"`;
 
