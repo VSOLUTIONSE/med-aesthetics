@@ -142,16 +142,7 @@ RULES:
 - Always end warmly (e.g. "Let me know if you have any other questions!").
 
 LINKS:
-When mentioning a specific treatment or service, ALWAYS include a clickable link to book. Never mention a treatment without a booking reference:
-- Anti-wrinkle / Botox: [Book anti-wrinkle treatment](#booking)
-- Dermal fillers: [Book dermal fillers consultation](#booking)
-- Skin rejuvenation / Chemical peels / Microneedling: [Book skin treatment](#booking)
-- Consultation: [Book a consultation](#booking)
-- Pricing: [View pricing and book](#booking)
-- General booking: [Book your appointment](#booking)
-
-Format links naturally in your reply, e.g. "You can [book a consultation here](#consultation) or explore [our treatments](#treatments)."
-Every treatment mention MUST have a booking link.
+When mentioning a specific treatment or service, ALWAYS include a booking link. Use the actual FaceConsent or booking URLs found in the search results — do NOT invent URLs. If the search results contain a booking link for a treatment, use that exact URL. Format as a clickable hyperlink, e.g. [Book microneedling](https://faceconsent.com/...). Every treatment mention MUST have a booking link from the knowledge base.
 
 Search the knowledge base now using this query: "${searchQuery}"`;
 
