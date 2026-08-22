@@ -73,7 +73,7 @@ const tools = {
     execute: async ({ query }) => {
       console.log("[Chat] Tool called: searchKnowledgeBase", { query });
       try {
-        const results = await searchDocuments(query, 6, 0.4);
+        const results = await searchDocuments(query, 8, 0.35);
         console.log("[Chat] Search results:", {
           query,
           count: results.length,
@@ -142,7 +142,12 @@ RULES:
 - Always end warmly (e.g. "Let me know if you have any other questions!").
 
 LINKS:
-When mentioning a specific treatment or service, ALWAYS include a booking link. Use the actual FaceConsent or booking URLs found in the search results — do NOT invent URLs. If the search results contain a booking link for a treatment, use that exact URL. Format as a clickable hyperlink, e.g. [Book microneedling](https://faceconsent.com/...). Every treatment mention MUST have a booking link from the knowledge base.
+- Only include a booking link when the knowledge base contains a specific FaceConsent or booking URL for that exact treatment.
+- Match the URL to the correct treatment category — do NOT use a generic/all-category URL for a specific treatment.
+- If no specific booking URL is found for the treatment mentioned, do NOT include any link.
+- Use the exact URL from the search results. Format: [Treatment name](exact-url-from-knowledge-base)
+- Example: if search results contain a microneedling FaceConsent URL, write [Book microneedling](https://faceconsent.com/...path-for-microneedling).
+- Never invent or guess URLs. If unsure, omit the link.
 
 Search the knowledge base now using this query: "${searchQuery}"`;
 
