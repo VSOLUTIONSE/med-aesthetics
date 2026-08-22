@@ -1,14 +1,6 @@
 // src/app/api/chat/route.ts
-import {
-  streamText,
-  UIMessage,
-  convertToModelMessages,
-  tool,
-  InferUITools,
-  stepCountIs,
-} from "ai";
+import { streamText, UIMessage, convertToModelMessages } from "ai";
 import { google } from "@ai-sdk/google";
-import { z } from "zod";
 import { searchDocuments } from "@/lib/search";
 
 // ---------------------------------------------------------------------------
@@ -25,10 +17,9 @@ function isNonSearchIntent(message: string): boolean {
 
 // ---------------------------------------------------------------------------
 // Conversation-aware query builder
-// Extracts the real search intent from chat context.
 // ---------------------------------------------------------------------------
 function buildSearchQuery(messages: UIMessage[]): string {
-  const recent = messages.slice(-6); // last 3 exchanges
+  const recent = messages.slice(-6);
   const userMessages = recent
     .filter((m) => m.role === "user")
     .map((m) => {
@@ -40,8 +31,6 @@ function buildSearchQuery(messages: UIMessage[]): string {
   if (userMessages.length === 0) return "";
   if (userMessages.length === 1) return userMessages[0];
 
-  // If the latest message is very short or references prior context
-  // (e.g. "what about that", "and the price?", "tell me more"), combine
   const latest = userMessages[userMessages.length - 1];
   const isFollowUp =
     latest.length < 40 ||
@@ -50,7 +39,6 @@ function buildSearchQuery(messages: UIMessage[]): string {
     );
 
   if (isFollowUp && userMessages.length >= 2) {
-    // Combine previous topic with current question for better retrieval
     const prev = userMessages[userMessages.length - 2];
     return `${prev} ${latest}`.trim();
   }
@@ -59,53 +47,13 @@ function buildSearchQuery(messages: UIMessage[]): string {
 }
 
 // ---------------------------------------------------------------------------
-// Tools
-// ---------------------------------------------------------------------------
-const tools = {
-  searchKnowledgeBase: tool({
-    description:
-      "Search the MedAesthetics Bristol knowledge base for relevant clinic details, treatments, pricing, and policies.",
-    inputSchema: z.object({
-      query: z
-        .string()
-        .describe("The semantic search query to find documents"),
-    }),
-    execute: async ({ query }) => {
-      console.log("[Chat] Tool called: searchKnowledgeBase", { query });
-      try {
-        const results = await searchDocuments(query, 8, 0.35);
-        console.log("[Chat] Search results:", {
-          query,
-          count: results.length,
-          topScore: results[0]?.similarity,
-        });
-
-        if (results.length === 0) {
-          return "No relevant information found in the knowledge base.";
-        }
-
-        return results
-          .map((r, i) => `[Source Document ${i + 1}]\n${r.content}`)
-          .join("\n\n");
-      } catch (error) {
-        console.error("[Chat] Search error:", error);
-        return "Error searching the knowledge base.";
-      }
-    },
-  }),
-};
-
-export type ChatTools = InferUITools<typeof tools>;
-export type ChatMessage = UIMessage<unknown, never, ChatTools>;
-
-// ---------------------------------------------------------------------------
-// Route handler
+// Route handler — pre-search (no tool-calling roundtrip)
 // ---------------------------------------------------------------------------
 export async function POST(req: Request) {
   const startTime = Date.now();
 
   try {
-    const { messages }: { messages: ChatMessage[] } = await req.json();
+    const { messages }: { messages: UIMessage[] } = await req.json();
 
     const lastMsg = messages[messages.length - 1];
     const userText =
@@ -118,17 +66,25 @@ export async function POST(req: Request) {
       userText: userText.substring(0, 80),
     });
 
-    // Decide whether to search or skip
     const skipSearch = isNonSearchIntent(userText);
     const searchQuery = skipSearch ? "" : buildSearchQuery(messages);
 
-    if (skipSearch) {
-      console.log("[Chat] Skipping search — non-research intent detected");
-    } else {
-      console.log("[Chat] Search query built:", {
-        original: userText.substring(0, 80),
-        built: searchQuery.substring(0, 80),
-      });
+    // Pre-search: run embedding + vector search before LLM call
+    let searchContext = "";
+    if (!skipSearch && searchQuery) {
+      console.log("[Chat] Pre-search:", { query: searchQuery.substring(0, 80) });
+      try {
+        const results = await searchDocuments(searchQuery, 8, 0.35);
+        console.log("[Chat] Search results:", {
+          count: results.length,
+          topScore: results[0]?.similarity,
+        });
+        searchContext = results
+          .map((r, i) => `[Source ${i + 1}]\n${r.content}`)
+          .join("\n\n");
+      } catch (err) {
+        console.error("[Chat] Search error:", err);
+      }
     }
 
     const systemPrompt = skipSearch
@@ -136,8 +92,8 @@ export async function POST(req: Request) {
       : `You are the friendly AI assistant for MedAesthetics Bristol — a medical-led facial aesthetics clinic in Bristol.
 
 RULES:
-- Only use facts from the search results. Never invent details.
-- If no relevant facts found, say: "I don't have that on file — please call us on 0117 123 4567 or book a consultation and we'll be happy to help!"
+- Only use facts from the knowledge base below. Never invent details.
+- If the knowledge base has no relevant info, say: "I don't have that on file — please call us on 0117 123 4567 or book a consultation and we'll be happy to help!"
 - Keep replies to 2-4 sentences unless more detail is genuinely needed.
 - Always end warmly (e.g. "Let me know if you have any other questions!").
 
@@ -145,18 +101,16 @@ LINKS:
 - Only include a booking link when the knowledge base contains a specific FaceConsent or booking URL for that exact treatment.
 - Match the URL to the correct treatment category — do NOT use a generic/all-category URL for a specific treatment.
 - If no specific booking URL is found for the treatment mentioned, do NOT include any link.
-- Use the exact URL from the search results. Format: [Treatment name](exact-url-from-knowledge-base)
-- Example: if search results contain a microneedling FaceConsent URL, write [Book microneedling](https://faceconsent.com/...path-for-microneedling).
+- Use the exact URL from the knowledge base. Format: [Treatment name](exact-url)
 - Never invent or guess URLs. If unsure, omit the link.
 
-Search the knowledge base now using this query: "${searchQuery}"`;
+KNOWLEDGE BASE:
+${searchContext || "No relevant documents found."}`;
 
     const result = streamText({
       model: google("gemini-3.6-flash"),
       messages: await convertToModelMessages(messages),
-      tools: skipSearch ? {} : tools,
       system: systemPrompt,
-      stopWhen: skipSearch ? undefined : stepCountIs(3),
       onEnd: ({ text }) => {
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
         console.log("[Chat] Response complete:", {
