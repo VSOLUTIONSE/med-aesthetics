@@ -5,7 +5,7 @@ import { google } from "@ai-sdk/google";
 // ---------------------------------------------------------------------------
 // In-memory LRU cache for query embeddings
 // Avoids redundant Google API calls for repeated / similar queries.
-// Max 500 entries; each 1536-dim float32 vector ≈ 6 KB → ~3 MB total.
+// Max 500 entries; each 768-dim float32 vector ≈ 3 KB → ~1.5 MB total.
 // ---------------------------------------------------------------------------
 const CACHE_MAX = 500;
 
@@ -55,7 +55,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
     value: input,
     providerOptions: {
       google: {
-        outputDimensionality: 1536,
+        outputDimensionality: 768,
       },
     },
   });
@@ -94,7 +94,7 @@ export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
       values: uncachedTexts,
       providerOptions: {
         google: {
-          outputDimensionality: 1536,
+          outputDimensionality: 768,
         },
       },
     });
