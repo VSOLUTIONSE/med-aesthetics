@@ -1,61 +1,71 @@
 "use client";
 
-import React from "react";
-import { Menu, X, Calendar } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import Image from "next/image";
+import React from "react";
 
 export const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "Treatments", href: "#" },
-    { name: "Your Consultation", href: "#" },
-    { name: "About", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Treatments", href: "#treatments" },
+    { name: "Consultation", href: "#consultation" },
+    { name: "About", href: "#about" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0E3F73] shadow-md">
-      {/* Main nav */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
+    <nav className="sticky top-0 z-50 border-b border-[var(--color-paper)]/10 bg-[var(--color-primary)]">
+      <div className="max-w-[var(--page-max)] mx-auto px-[var(--page-gutter)]">
+        <div className="flex justify-between items-center h-16">
+          {/* Wordmark — hard left */}
+          <a href="/" className="flex items-center gap-3">
             <Image
               src="/img/logo.jpg"
               alt="MedAesthetics Bristol"
-              width={48}
-              height={48}
-              className="h-12 w-12 rounded-full border-2 border-[#C8A45A] object-cover"
+              width={32}
+              height={32}
+              className="h-9 w-9 rounded-full border-2 border-[var(--color-paper)]/30 object-cover"
               priority
             />
-          </div>
+            <span className="font-[var(--font-display)] text-[var(--text-lg)] font-semibold tracking-[-0.02em] text-[var(--color-paper)]">
+              MedAesthetics
+            </span>
+          </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop nav links — centre / left-aligned next to wordmark */}
+          <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-white/90 hover:text-[#C8A45A] transition-colors duration-200 text-sm font-medium tracking-wide"
+                className="px-3 py-2 text-sm font-medium text-[var(--color-paper)]/80 hover:text-[var(--color-paper)] transition-colors rounded-lg hover:bg-[var(--color-paper)]/10 focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] focus-visible:outline-offset-2"
               >
                 {link.name}
               </a>
             ))}
-            <button className="bg-[#C8A45A] text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-[#b6934a] transition-all duration-300 flex items-center gap-2 shadow-sm">
-              <Calendar size={16} />
-              Book a Consultation
-            </button>
+          </div>
+
+          {/* Desktop CTA — hard right */}
+          <div className="hidden md:flex items-center gap-6">
+            <a
+              href="#booking"
+              className="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-accent-ink)] px-5 py-2 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] focus-visible:outline-offset-2"
+            >
+              Book a consultation
+              <ArrowRight size={14} />
+            </a>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-[#C8A45A] focus:outline-none"
+              className="text-[var(--color-paper)] hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] focus-visible:outline-offset-2 transition-colors p-2"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
@@ -63,23 +73,28 @@ export const NavBar: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-[#0E3F73] border-t border-white/10">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="md:hidden bg-[var(--color-primary)] border-t border-[var(--color-paper)]/10">
+          <div className="px-[var(--page-gutter)] py-4 space-y-1">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="block px-3 py-4 text-base font-medium text-white hover:text-[#C8A45A] transition-colors"
+                className="block px-3 py-3 text-sm font-medium text-[var(--color-paper)]/90 hover:text-[var(--color-accent)] transition-colors rounded-lg hover:bg-[var(--color-paper)]/5"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </a>
             ))}
-            <div className="px-3 py-4">
-              <button className="w-full bg-[#C8A45A] text-white px-6 py-3 rounded-full text-base font-semibold hover:bg-[#b6934a] transition-all flex justify-center items-center gap-2">
-                <Calendar size={18} />
-                Book a Consultation
-              </button>
+            <div className="pt-3">
+              {/* biome-ignore lint/a11y/useValidAnchor: in-page navigation to the booking section */}
+              <a
+                href="#booking"
+                className="flex items-center justify-center gap-2 w-full bg-[var(--color-accent)] text-[var(--color-accent-ink)] px-5 py-3 rounded-full text-sm font-semibold"
+                onClick={() => setIsOpen(false)}
+              >
+                Book a consultation
+                <ArrowRight size={14} />
+              </a>
             </div>
           </div>
         </div>

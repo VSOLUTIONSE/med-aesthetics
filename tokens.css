@@ -1,0 +1,92 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Split Studio · theme: custom
+ * vibe: "navy-led clinical luxury" · paper: oklch(97% 0.010 90) · primary: oklch(32% 0.085 256)
+ * display: Manrope · body: Geist · axes: light / geometric-sans / warm-gold
+ * Navy leads: nav, buttons, widget chrome, dark sections. Gold accents: eyebrows,
+ * dividers, underlines, on-dark details, and CTAs that sit ON navy surfaces.
+ * studied: no · context: explicit · v1.3.0
+ */
+:root {
+  /* Colours — OKLCH only, tinted neutrals
+   * Brand anchor: deep navy #0E3F73 · gold #C8A45A
+   * --color-accent      = brand gold — surfaces, borders, buttons, dark-bg text
+   * --color-accent-deep = antique gold — accent TEXT/ICONS on light backgrounds (AA contrast)
+   */
+  --color-paper: oklch(97% 0.01 90);
+  --color-paper-2: oklch(94% 0.013 90);
+  --color-paper-3: oklch(90% 0.018 90);
+  --color-ink: oklch(32% 0.085 256);
+  --color-ink-2: oklch(45% 0.055 256);
+  --color-rule: oklch(86% 0.015 90);
+  --color-muted: oklch(56% 0.03 256);
+  --color-accent: oklch(75% 0.115 88);
+  --color-accent-ink: oklch(26% 0.075 256);
+  --color-accent-deep: oklch(47% 0.095 80);
+  --color-focus: oklch(60% 0.12 85);
+
+  /* Primary action surface — deep navy (#0E3F73 family). Buttons, nav bar,
+   * widget chrome. Aliased to ink so they move together. */
+  --color-primary: var(--color-ink);
+
+  /* Typography */
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  /* Spacing — 4pt scale */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* Type scale — major third (1.25) */
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-3xl: 3.0518rem;
+  --text-4xl: 3.8147rem;
+  --text-display: clamp(2.5rem, 5vw + 0.75rem, 4.5rem);
+  --text-display-s: clamp(2rem, 4vw + 0.5rem, 3.5rem);
+
+  /* Easings */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Durations */
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 9999px;
+
+  /* Rules */
+  --rule-hair: 1px;
+  --rule-thin: 2px;
+
+  /* Z-index */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* Page */
+  --page-gutter: clamp(1rem, 4vw, 2rem);
+  --page-max: 1200px;
+}

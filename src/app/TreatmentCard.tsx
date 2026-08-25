@@ -1,5 +1,6 @@
-import React from "react";
-import { Clock, ArrowRight } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
+import type React from "react";
+
 interface TreatmentCardProps {
   title: string;
   description: string;
@@ -7,6 +8,7 @@ interface TreatmentCardProps {
   duration: string;
   imageUrl?: string;
 }
+
 export const TreatmentCard: React.FC<TreatmentCardProps> = ({
   title,
   description,
@@ -15,50 +17,53 @@ export const TreatmentCard: React.FC<TreatmentCardProps> = ({
   imageUrl = "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop",
 }) => {
   return (
-    <div className="group bg-white border border-[#EAF1F7] hover:border-[#C8A45A] transition-all duration-500 overflow-hidden flex flex-col h-full shadow-sm hover:shadow-lg rounded-2xl">
-      {/* Image Container */}
-      <div className="relative h-48 overflow-hidden rounded-t-2xl">
+    <div className="group bg-[var(--color-paper)] border border-[var(--color-rule)] hover:border-[var(--color-accent)]/40 transition-all duration-[var(--dur-long)] overflow-hidden flex flex-col h-full rounded-[var(--radius-lg)]">
+      {/* Image */}
+      <div className="relative h-52 overflow-hidden">
+        {/* biome-ignore lint/performance/noImgElement: external Unsplash placeholder imagery */}
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0E3F73]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/10 to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col flex-grow">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="font-['Cormorant_Garamond'] text-2xl font-semibold text-[#0E3F73] leading-tight group-hover:text-[#C8A45A] transition-colors">
-            {title}
-          </h3>
-        </div>
+      <div className="p-[var(--space-lg)] flex flex-col flex-grow">
+        <h3 className="font-[var(--font-display)] text-[var(--text-xl)] font-semibold text-[var(--color-ink)] tracking-[-0.02em] leading-tight group-hover:text-[var(--color-accent-deep)] transition-colors duration-[var(--dur-short)]">
+          {title}
+        </h3>
 
-        <p className="text-sm text-[#1E2833]/70 leading-relaxed mb-6 flex-grow">
+        <p className="mt-[var(--space-sm)] text-[var(--text-sm)] text-[var(--color-ink-2)] leading-relaxed flex-grow">
           {description}
         </p>
 
-        {/* Details Row */}
-        <div className="flex items-center justify-between py-4 border-t border-[#EAF1F7] mb-4">
-          <div className="flex items-center gap-1.5 text-xs text-[#0E3F73]/60 font-medium">
-            <Clock size={14} className="text-[#C8A45A]" />
+        {/* Details */}
+        <div className="flex items-center justify-between py-[var(--space-md)] border-t border-[var(--color-rule)] mt-[var(--space-md)]">
+          <div className="flex items-center gap-1.5 text-[var(--text-xs)] text-[var(--color-muted)] font-medium">
+            <Clock size={13} className="text-[var(--color-accent-deep)]" />
             <span>{duration}</span>
           </div>
           <div className="text-right">
-            <span className="block text-[10px] uppercase tracking-wider text-[#0E3F73]/50 mb-0.5">
-              Investment
+            <span className="block text-[9px] uppercase tracking-wider text-[var(--color-muted)] mb-0.5">
+              From
             </span>
-            <span className="text-[#0E3F73] font-semibold">
-              from {priceFrom}
+            <span className="text-[var(--color-ink)] font-semibold text-sm">
+              {priceFrom}
             </span>
           </div>
         </div>
 
-        <button className="w-full flex items-center justify-center gap-2 py-3 border border-[#0E3F73] text-[#0E3F73] text-sm font-semibold hover:bg-[#0E3F73] hover:text-white transition-all duration-300 rounded-full">
-          Learn More
+        <button
+          type="button"
+          className="w-full flex items-center justify-center gap-2 py-2.5 border border-[var(--color-ink)] text-[var(--color-ink)] text-[var(--text-sm)] font-medium rounded-full hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-all duration-[var(--dur-short)]"
+        >
+          Learn more
           <ArrowRight
-            size={16}
-            className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"
+            size={14}
+            className="opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-[var(--dur-short)]"
           />
         </button>
       </div>
