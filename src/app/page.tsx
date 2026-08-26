@@ -443,7 +443,7 @@ export default function Home() {
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ink)]/88 via-[var(--color-ink)]/85 to-[var(--color-ink)]/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ink)]/25 via-[var(--color-ink)]/20 to-[var(--color-ink)]/30" />
           <div className="relative z-10">
             <p className="mb-[var(--space-sm)] text-[var(--text-xs)] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
               Begin somewhere simple
