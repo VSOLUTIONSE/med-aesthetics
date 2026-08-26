@@ -48,15 +48,20 @@ export default function PDFUpload() {
         });
         e.target.value = "";
       } else {
+        console.error("[Upload] Server action returned error:", result.error);
         setMessage({
           type: "error",
           text: result.error || "Something went wrong.",
         });
       }
-    } catch {
+    } catch (err) {
+      console.error("[Upload] Client-side error:", err);
       setMessage({
         type: "error",
-        text: "Something went wrong. Please try again.",
+        text:
+          err instanceof Error
+            ? err.message
+            : "Something went wrong. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -186,7 +191,19 @@ export default function PDFUpload() {
           </Card>
 
           {/* Main Upload Card */}
-          <Card className="bg-[var(--color-paper)] border-[var(--color-rule)] overflow-hidden">
+          <Card className="relative bg-[var(--color-paper)] border-[var(--color-rule)] overflow-hidden">
+            {isLoading && (
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-[var(--color-paper)]/90 backdrop-blur-sm">
+                <Loader2 className="h-8 w-8 animate-spin text-[var(--color-accent-deep)]" />
+                <p className="text-[var(--text-sm)] font-semibold text-[var(--color-ink)]">
+                  Processing your document...
+                </p>
+                <p className="text-[var(--text-xs)] text-[var(--color-muted)]">
+                  Extracting text, generating embeddings, and saving to the
+                  knowledge base.
+                </p>
+              </div>
+            )}
             <CardHeader className="bg-[var(--color-ink)] text-[var(--color-paper)] p-[var(--space-lg)]">
               <CardTitle className="text-[var(--text-lg)] font-semibold flex items-center gap-2">
                 <UploadCloud size={18} className="text-[var(--color-accent)]" />
@@ -229,36 +246,25 @@ export default function PDFUpload() {
                 </div>
               </div>
 
-              {isLoading && (
-                <div className="flex items-center gap-3 bg-[var(--color-paper-2)]/50 p-4 rounded-[var(--radius-md)] border border-[var(--color-rule)]">
-                  <Loader2 className="h-5 w-5 animate-spin text-[var(--color-accent-deep)]" />
-                  <div>
-                    <p className="text-[var(--text-sm)] font-medium text-[var(--color-ink)]/80">
-                      Reading your document...
-                    </p>
-                    <p className="text-[10px] text-[var(--color-muted)] mt-0.5">
-                      This usually takes a few seconds.
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {message && (
+              {!isLoading && message && (
                 <Alert
-                  variant={message.type === "error" ? "destructive" : "default"}
                   className={`border ${
                     message.type === "success"
-                      ? "bg-emerald-50 border-emerald-200 text-emerald-800"
-                      : "bg-red-50 border-red-200 text-red-800"
+                      ? "bg-[var(--color-paper-2)] border-[var(--color-accent)]/30 text-[var(--color-ink)]"
+                      : "bg-[var(--color-paper-2)] border-red-300 text-red-800"
                   }`}
                 >
                   <div className="flex items-start gap-2">
-                    {message.type === "success" && (
-                      <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                    {message.type === "success" ? (
+                      <CheckCircle2 className="h-5 w-5 text-[var(--color-accent-deep)] shrink-0 mt-0.5" />
+                    ) : (
+                      <Info className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
                     )}
                     <div>
                       <AlertTitle className="font-bold text-sm">
-                        {message.type === "error" ? "Oops" : "All done"}
+                        {message.type === "error"
+                          ? "Upload failed"
+                          : "All done"}
                       </AlertTitle>
                       <AlertDescription className="text-xs mt-1">
                         {message.text}
