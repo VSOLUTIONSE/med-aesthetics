@@ -8,10 +8,10 @@ export const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const navLinks = [
-    { name: "Treatments", href: "#treatments" },
-    { name: "Consultation", href: "#consultation" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Treatments", href: "/treatments" },
+    { name: "Consultation", href: "/#consultation" },
+    { name: "About", href: "/#about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -49,10 +49,12 @@ export const NavBar: React.FC = () => {
           {/* Desktop CTA — hard right */}
           <div className="hidden md:flex items-center gap-6">
             <a
-              href="#booking"
+              href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-accent-ink)] px-5 py-2 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-[var(--color-focus)] focus-visible:outline-offset-2"
             >
-              Book a consultation
+              Book appointment
               <ArrowRight size={14} />
             </a>
           </div>
@@ -86,13 +88,14 @@ export const NavBar: React.FC = () => {
               </a>
             ))}
             <div className="pt-3">
-              {/* biome-ignore lint/a11y/useValidAnchor: in-page navigation to the booking section */}
               <a
-                href="#booking"
+                href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-[var(--color-accent)] text-[var(--color-accent-ink)] px-5 py-3 rounded-full text-sm font-semibold"
                 onClick={() => setIsOpen(false)}
               >
-                Book a consultation
+                Book appointment
                 <ArrowRight size={14} />
               </a>
             </div>

@@ -31,12 +31,22 @@ const signInSchema = z.object({
 
 type SignInValues = z.infer<typeof signInSchema>;
 
+const verifySchema = z.object({
+  code: z
+    .string()
+    .min(1, "Verification code is required")
+    .min(6, "Code must be 6 digits"),
+});
+
+type VerifyValues = z.infer<typeof verifySchema>;
+
 export default function SignInPage() {
   const { signIn, errors, fetchStatus } = useSignIn();
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [pendingVerificationEmail, setPendingVerificationEmail] = useState<string | null>(null);
 
   const isPending = fetchStatus === "fetching";
 
@@ -68,11 +78,40 @@ export default function SignInPage() {
         await signIn.finalize();
         router.push("/upload");
         router.refresh();
+      } else if (signIn.status === "needs_verification") {
+        await signIn.prepareFirstFactor({ strategy: "email_code" });
+        setPendingVerificationEmail(values.emailAddress);
       } else {
         setServerError("Additional verification is required. Please contact the clinic.");
       }
     } catch {
       setServerError("Unable to sign in. Please try again.");
+    }
+  }
+
+  async function onVerifyCode(values: VerifyValues) {
+    if (!signIn) return;
+
+    setServerError(null);
+
+    try {
+      const result = await signIn.attemptFirstFactor({
+        strategy: "email_code",
+        code: values.code,
+      });
+
+      if (result.error) {
+        setServerError(result.error.longMessage ?? "Invalid code. Please try again.");
+        return;
+      }
+
+      if (signIn.status === "complete") {
+        await signIn.finalize();
+        router.push("/upload");
+        router.refresh();
+      }
+    } catch {
+      setServerError("Unable to verify. Please try again.");
     }
   }
 

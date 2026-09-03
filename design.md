@@ -69,7 +69,7 @@ tokens (`var(--space-md)`), never raw values.
 - Primary CTA on navy/dark: filled pill, gold background, navy ink text
 - Secondary CTA on light: outlined pill, ink border, ink text
 - Secondary CTA on dark: outlined paper border, paper text
-- Labels: "Book a consultation" / "Explore treatments"
+- Labels: "Book appointment" / "Explore treatments"
 
 ## Imagery
 - Warm, natural-light photography of the clinic, treatments, and real moments

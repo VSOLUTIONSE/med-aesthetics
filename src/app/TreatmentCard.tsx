@@ -7,6 +7,8 @@ interface TreatmentCardProps {
   priceFrom: string;
   duration: string;
   imageUrl?: string;
+  href?: string;
+  ctaLabel?: string;
 }
 
 export const TreatmentCard: React.FC<TreatmentCardProps> = ({
@@ -15,6 +17,8 @@ export const TreatmentCard: React.FC<TreatmentCardProps> = ({
   priceFrom,
   duration,
   imageUrl = "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop",
+  href,
+  ctaLabel = "Learn more",
 }) => {
   return (
     <div className="group bg-[var(--color-paper)] border border-[var(--color-rule)] hover:border-[var(--color-accent)]/40 transition-all duration-[var(--dur-long)] overflow-hidden flex flex-col h-full rounded-[var(--radius-lg)]">
@@ -56,16 +60,30 @@ export const TreatmentCard: React.FC<TreatmentCardProps> = ({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="w-full flex items-center justify-center gap-2 py-2.5 border border-[var(--color-ink)] text-[var(--color-ink)] text-[var(--text-sm)] font-medium rounded-full hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-all duration-[var(--dur-short)]"
-        >
-          Learn more
-          <ArrowRight
-            size={14}
-            className="opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-[var(--dur-short)]"
-          />
-        </button>
+        {href ? (
+          <a
+            href={href}
+            {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="w-full flex items-center justify-center gap-2 py-2.5 border border-[var(--color-ink)] text-[var(--color-ink)] text-[var(--text-sm)] font-medium rounded-full hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-all duration-[var(--dur-short)]"
+          >
+            {ctaLabel}
+            <ArrowRight
+              size={14}
+              className="opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-[var(--dur-short)]"
+            />
+          </a>
+        ) : (
+          <button
+            type="button"
+            className="w-full flex items-center justify-center gap-2 py-2.5 border border-[var(--color-ink)] text-[var(--color-ink)] text-[var(--text-sm)] font-medium rounded-full hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-all duration-[var(--dur-short)]"
+          >
+            {ctaLabel}
+            <ArrowRight
+              size={14}
+              className="opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-[var(--dur-short)]"
+            />
+          </button>
+        )}
       </div>
     </div>
   );

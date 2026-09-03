@@ -5,7 +5,10 @@ import {
   Award,
   Check,
   HeartPulse,
+  Mail,
+  MapPin,
   MessageCircle,
+  Phone,
   ShieldCheck,
   Sparkles,
   UserCheck,
@@ -93,10 +96,12 @@ export default function Home() {
       <div className="bg-[var(--color-ink)] px-4 py-2 text-center text-[11px] font-medium tracking-[0.1em] text-[var(--color-paper)]/70">
         <span>Now welcoming new consultation appointments in Bristol. </span>
         <a
-          href="#booking"
+          href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
+          target="_blank"
+          rel="noopener noreferrer"
           className="underline underline-offset-4 hover:text-[var(--color-accent)] transition-colors"
         >
-          Book a consultation
+          Book appointment
         </a>
       </div>
 
@@ -141,10 +146,12 @@ export default function Home() {
               </p>
               <div className="mt-[var(--space-xl)] flex flex-col gap-3 sm:flex-row">
                 <a
-                  href="#booking"
+                  href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-[var(--color-paper)] px-6 py-3 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                 >
-                  Book a consultation <ArrowRight size={15} />
+                  Book appointment <ArrowRight size={15} />
                 </a>
                 <a
                   href="#treatments"
@@ -203,7 +210,7 @@ export default function Home() {
                 </h2>
               </div>
               <a
-                href="#consultation"
+                href="/treatments"
                 className="text-[var(--text-sm)] font-semibold text-[var(--color-ink)] underline decoration-[var(--color-accent)] underline-offset-4 hover:text-[var(--color-accent-deep)] transition-colors"
               >
                 View all treatments <span aria-hidden="true">→</span>
@@ -241,10 +248,12 @@ export default function Home() {
               </p>
               <div className="mt-[var(--space-xl)]">
                 <a
-                  href="#booking"
+                  href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-[var(--color-paper)] px-6 py-3 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                 >
-                  Book a consultation <ArrowRight size={15} />
+                  Book appointment <ArrowRight size={15} />
                 </a>
               </div>
               <figure className="mt-[var(--space-2xl)] overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-rule)]">
@@ -430,6 +439,93 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Contact — details & location */}
+        <section
+          id="contact"
+          className="px-[var(--page-gutter)] py-[var(--space-3xl)] lg:py-[var(--space-4xl)]"
+          aria-labelledby="contact-heading"
+        >
+          <div className="max-w-[var(--page-max)] mx-auto grid gap-[var(--space-2xl)] lg:grid-cols-2 lg:gap-[var(--space-3xl)]">
+            <div>
+              <p className="mb-[var(--space-sm)] text-[var(--text-xs)] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-deep)]">
+                Contact &amp; location
+              </p>
+              <h2
+                id="contact-heading"
+                className="font-[var(--font-display)] max-w-md text-[var(--text-3xl)] font-bold leading-tight tracking-[-0.02em]"
+              >
+                Find us in the heart of Clifton.
+              </h2>
+              <p className="mt-[var(--space-lg)] max-w-md text-[var(--text-base)] leading-[1.8] text-[var(--color-ink-2)]">
+                The clinic sits just off Berkeley Square — a quiet, light-filled
+                space where conversations are never rushed. Send a question any
+                time, or book an appointment and we will take it from there.
+              </p>
+              <a
+                href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-[var(--space-xl)] inline-flex items-center gap-2 bg-[var(--color-primary)] text-[var(--color-paper)] px-6 py-3 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              >
+                Book appointment <ArrowRight size={15} />
+              </a>
+            </div>
+
+            <ul className="divide-y divide-[var(--color-rule)] text-[var(--text-sm)] leading-[1.7]">
+              <li className="flex items-start gap-3 py-[var(--space-md)] first:pt-0">
+                <MapPin
+                  size={18}
+                  className="mt-0.5 shrink-0 text-[var(--color-accent-deep)]"
+                />
+                <div>
+                  <p className="font-semibold text-[var(--color-ink)]">
+                    The clinic
+                  </p>
+                  <p className="mt-1 text-[var(--color-ink-2)]">
+                    18 Berkeley Square, Clifton
+                    <br />
+                    Bristol, BS8 1HB
+                  </p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3 py-[var(--space-md)]">
+                <Phone
+                  size={18}
+                  className="mt-0.5 shrink-0 text-[var(--color-accent-deep)]"
+                />
+                <div>
+                  <p className="font-semibold text-[var(--color-ink)]">
+                    Call the clinic
+                  </p>
+                  <a
+                    href="tel:+441171234567"
+                    className="mt-1 block text-[var(--color-ink-2)] hover:text-[var(--color-accent-deep)] transition-colors duration-[var(--dur-short)]"
+                  >
+                    0117 123 4567
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-start gap-3 py-[var(--space-md)] last:pb-0">
+                <Mail
+                  size={18}
+                  className="mt-0.5 shrink-0 text-[var(--color-accent-deep)]"
+                />
+                <div>
+                  <p className="font-semibold text-[var(--color-ink)]">
+                    Write to us
+                  </p>
+                  <a
+                    href="mailto:hello@medaestheticsbristol.co.uk"
+                    className="mt-1 block break-all text-[var(--color-ink-2)] hover:text-[var(--color-accent-deep)] transition-colors duration-[var(--dur-short)]"
+                  >
+                    hello@medaestheticsbristol.co.uk
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
         {/* Booking CTA — dark section, photo under deep-navy overlay */}
         <section
           id="booking"
@@ -457,13 +553,15 @@ export default function Home() {
             </p>
             <div className="mt-[var(--space-xl)] flex flex-col justify-center gap-3 sm:flex-row">
               <a
-                href="#consultation"
+                href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-[var(--color-accent)] text-[var(--color-accent-ink)] px-7 py-3.5 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
               >
-                Book a consultation
+                Book appointment
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="border border-[var(--color-paper)]/60 text-[var(--color-paper)] px-7 py-3.5 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:bg-[var(--color-paper)] hover:text-[var(--color-ink)]"
               >
                 Contact the clinic
