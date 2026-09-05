@@ -26,7 +26,7 @@
   --color-ring: var(--color-focus);
   --color-input: var(--color-rule);
   --color-border: var(--color-rule);
-  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-destructive: var(--color-danger);
   --color-accent-foreground: var(--color-ink);
   --color-accent: var(--color-paper-2);
   --color-muted-foreground: var(--color-muted);
@@ -61,7 +61,7 @@
   --muted-foreground: var(--color-muted);
   --accent: var(--color-paper-2);
   --accent-foreground: var(--color-ink);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: var(--color-danger);
   --border: var(--color-rule);
   --input: var(--color-rule);
   --ring: var(--color-focus);
@@ -118,6 +118,12 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 3px;
+}
+
+/* Selection — powder-gold polish */
+::selection {
+  background: oklch(80% 0.128 85 / 30%);
+  color: var(--color-ink);
 }
 
 /* Reduced motion */

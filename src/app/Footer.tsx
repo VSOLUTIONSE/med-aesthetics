@@ -26,7 +26,11 @@ const openingHours = [
 ];
 
 const socials = [
-  { name: "Instagram", href: "https://www.instagram.com", icon: Instagram },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/medaestheticsbristol",
+    icon: Instagram,
+  },
   { name: "Facebook", href: "https://www.facebook.com", icon: Facebook },
   {
     name: "Email",
@@ -34,6 +38,9 @@ const socials = [
     icon: Mail,
   },
 ];
+
+const mapUrl =
+  "https://www.google.com/maps/place/MedAesthetics+Bristol/@51.4207682,-2.5642853,18z/data=!4m6!3m5!1s0x48718f8ebfc41b19:0x4e8c958f54b96551!8m2!3d51.420504!4d-2.55935!16s%2Fg%2F11mkc22t1j?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D";
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -118,9 +125,24 @@ export const Footer: React.FC = () => {
                   className="mt-0.5 shrink-0 text-[var(--color-accent)]"
                 />
                 <span>
-                  18 Berkeley Square
-                  <br />
-                  Bristol, BS8 1HB
+                  <a
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[var(--color-accent)] transition-colors duration-[var(--dur-short)]"
+                  >
+                    22 Acer Village
+                    <br />
+                    Bristol BS14 9BH
+                  </a>
+                  <a
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-1 text-[var(--text-xs)] font-semibold text-[var(--color-accent)] hover:text-[var(--color-paper)] transition-colors duration-[var(--dur-short)]"
+                  >
+                    Get directions <span aria-hidden="true">→</span>
+                  </a>
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -129,10 +151,10 @@ export const Footer: React.FC = () => {
                   className="shrink-0 text-[var(--color-accent)]"
                 />
                 <a
-                  href="tel:+441171234567"
+                  href="tel:+447981084434"
                   className="hover:text-[var(--color-accent)] transition-colors duration-[var(--dur-short)]"
                 >
-                  0117 123 4567
+                  07981 084434
                 </a>
               </li>
               <li className="flex items-center gap-3">

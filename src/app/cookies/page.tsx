@@ -43,7 +43,7 @@ const sections: LegalSection[] = [
   {
     heading: "Contact",
     paragraphs: [
-      "Questions about cookies or privacy? Email hello@medaestheticsbristol.co.uk or call 0117 123 4567.",
+      "Questions about cookies or privacy? Email hello@medaestheticsbristol.co.uk or call 07981 084434.",
     ],
   },
 ];

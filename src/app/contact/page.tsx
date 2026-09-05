@@ -7,11 +7,14 @@ import { NavBar } from "../Navbar";
 export const metadata: Metadata = {
   title: "Contact & location — MedAesthetics Bristol",
   description:
-    "Find MedAesthetics Bristol at 18 Berkeley Square, Clifton. Call 0117 123 4567, email hello@medaestheticsbristol.co.uk, or book a consultation online.",
+    "Find MedAesthetics Bristol at 22 Acer Village, Bristol BS14 9BH. Call 07981 084434, email hello@medaestheticsbristol.co.uk, or book a consultation online.",
 };
 
 const bookingUrl =
   "https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410";
+
+const mapUrl =
+  "https://www.google.com/maps/place/MedAesthetics+Bristol/@51.4207682,-2.5642853,18z/data=!4m6!3m5!1s0x48718f8ebfc41b19:0x4e8c958f54b96551!8m2!3d51.420504!4d-2.55935!16s%2Fg%2F11mkc22t1j?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D";
 
 const hours = [
   { day: "Monday", time: "Closed" },
@@ -43,15 +46,15 @@ export default function ContactPage() {
                 id="contact-hero-heading"
                 className="font-[var(--font-display)] text-[var(--text-display)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--color-primary)]"
               >
-                Find us in the heart of{" "}
+                Find us in{" "}
                 <span className="text-[var(--color-accent-deep)]">
-                  Clifton.
+                  Bristol.
                 </span>
               </h1>
               <p className="mt-[var(--space-lg)] max-w-lg text-[var(--text-base)] leading-[1.8] text-[var(--color-ink-2)]">
-                The clinic sits just off Berkeley Square — a quiet, light-filled
-                space where conversations are never rushed. Send a question any
-                time, or book an appointment and we will take it from there.
+                The clinic is a calm, light-filled space where conversations are
+                never rushed. Send a question any time, or book an appointment
+                and we will take it from there.
               </p>
               <div className="mt-[var(--space-xl)] flex flex-col gap-3 sm:flex-row">
                 <a
@@ -74,7 +77,7 @@ export default function ContactPage() {
               {/* biome-ignore lint/performance/noImgElement: external Unsplash placeholder imagery */}
               <img
                 src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop"
-                alt="The calm, light-filled exterior of a clinic in the Clifton area of Bristol"
+                alt="The calm, light-filled exterior of the MedAesthetics clinic in Bristol"
                 className="aspect-[4/3] w-full object-cover"
                 loading="lazy"
               />
@@ -109,11 +112,24 @@ export default function ContactPage() {
                     <p className="font-semibold text-[var(--color-ink)]">
                       The clinic
                     </p>
-                    <p className="mt-1 text-[var(--color-ink-2)]">
-                      18 Berkeley Square, Clifton
+                    <a
+                      href={mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 block text-[var(--color-ink-2)] hover:text-[var(--color-accent-deep)] transition-colors duration-[var(--dur-short)]"
+                    >
+                      22 Acer Village, Bristol
                       <br />
-                      Bristol, BS8 1HB
-                    </p>
+                      BS14 9BH, United Kingdom
+                    </a>
+                    <a
+                      href={mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-flex items-center gap-1 text-[var(--text-xs)] font-semibold text-[var(--color-accent-deep)] hover:text-[var(--color-ink)] transition-colors duration-[var(--dur-short)]"
+                    >
+                      Get directions <span aria-hidden="true">→</span>
+                    </a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 py-[var(--space-md)]">
@@ -126,10 +142,10 @@ export default function ContactPage() {
                       Call the clinic
                     </p>
                     <a
-                      href="tel:+441171234567"
+                      href="tel:+447981084434"
                       className="mt-1 block text-[var(--color-ink-2)] hover:text-[var(--color-accent-deep)] transition-colors duration-[var(--dur-short)]"
                     >
-                      0117 123 4567
+                      07981 084434
                     </a>
                   </div>
                 </li>

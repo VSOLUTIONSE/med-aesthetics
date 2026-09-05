@@ -11,7 +11,7 @@ const sections: LegalSection[] = [
   {
     heading: "Who we are",
     paragraphs: [
-      "MedAesthetics Bristol is a medical-led facial aesthetics clinic at 18 Berkeley Square, Bristol, BS8 1HB. This policy explains how we handle information through our website, our booking process and the clinic itself.",
+      "MedAesthetics Bristol is a medical-led facial aesthetics clinic at 22 Acer Village, Bristol BS14 9BH. This policy explains how we handle information through our website, our booking process and the clinic itself.",
     ],
   },
   {
@@ -66,7 +66,7 @@ const sections: LegalSection[] = [
   {
     heading: "Get in touch",
     paragraphs: [
-      "For any question about your privacy, email hello@medaestheticsbristol.co.uk or call 0117 123 4567.",
+      "For any question about your privacy, email hello@medaestheticsbristol.co.uk or call 07981 084434.",
     ],
   },
 ];

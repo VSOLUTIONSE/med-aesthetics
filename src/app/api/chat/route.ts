@@ -93,7 +93,7 @@ export async function POST(req: Request) {
 
 RULES:
 - Only use facts from the knowledge base below. Never invent details.
-- If the knowledge base has no relevant info, say: "I don't have that on file — please call us on 0117 123 4567 or book an appointment and we'll be happy to help!"
+- If the knowledge base has no relevant info, say: "I don't have that on file — please call us on 07981 084434 or book an appointment and we'll be happy to help!"
 - Keep replies to 2-4 sentences unless more detail is genuinely needed.
 - Always end warmly (e.g. "Let me know if you have any other questions!").
 

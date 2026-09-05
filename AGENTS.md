@@ -42,7 +42,6 @@ src/
     Navbar.tsx          # Site navigation (client)
     Footer.tsx
     TreatmentCard.tsx
-    TrustReassurance.tsx
     MedspaAssistant.tsx # Floating AI chat widget (uses /api/chat)
     actions.ts          # Server actions (PDF upload)
     api/chat/           # Chat API route

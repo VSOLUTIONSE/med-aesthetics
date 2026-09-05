@@ -1,9 +1,11 @@
 /* Hallmark · genre: modern-minimal · macrostructure: Split Studio · theme: custom
- * vibe: "navy-led clinical luxury" · paper: oklch(97% 0.010 90) · primary: oklch(32% 0.085 256)
- * display: Manrope · body: Geist · axes: light / geometric-sans / warm-gold
+ * vibe: "cool clinical-luxe" · audience: 25–35 trend-led, Instagram-native
+ * paper: oklch(97% 0.010 90) · ink: oklch(26% 0.095 260) deep ink-navy
+ * display: Manrope 800 · body: Geist · data: Geist Mono · axes: light / geometric-sans / warm-gold
  * Navy leads: nav, buttons, widget chrome, dark sections. Gold accents: eyebrows,
  * dividers, underlines, on-dark details, and CTAs that sit ON navy surfaces.
- * studied: no · context: explicit · v1.3.0
+ * accent-soft: powder-gold wash for section tints, badges, soft chips.
+ * studied: no · context: explicit · v1.4.0
  */
 :root {
   /* Colours — OKLCH only, tinted neutrals
@@ -14,14 +16,21 @@
   --color-paper: oklch(97% 0.01 90);
   --color-paper-2: oklch(94% 0.013 90);
   --color-paper-3: oklch(90% 0.018 90);
-  --color-ink: oklch(32% 0.085 256);
-  --color-ink-2: oklch(45% 0.055 256);
+  --color-ink: oklch(26% 0.095 260);
+  --color-ink-2: oklch(42% 0.045 250);
   --color-rule: oklch(86% 0.015 90);
-  --color-muted: oklch(56% 0.03 256);
-  --color-accent: oklch(75% 0.115 88);
+  --color-muted: oklch(56% 0.03 250);
+  --color-accent: oklch(80% 0.128 85);
+  --color-accent-soft: oklch(95% 0.03 85);
   --color-accent-ink: oklch(26% 0.075 256);
-  --color-accent-deep: oklch(47% 0.095 80);
+  --color-accent-deep: oklch(45% 0.1 75);
   --color-focus: oklch(60% 0.12 85);
+
+  /* Semantic states — desaturated so they sit quietly next to brand gold */
+  --color-danger: oklch(52% 0.13 27);
+  --color-danger-soft: oklch(96% 0.015 27);
+  --color-success: oklch(46% 0.09 165);
+  --color-success-soft: oklch(96% 0.015 165);
 
   /* Primary action surface — deep navy (#0E3F73 family). Buttons, nav bar,
    * widget chrome. Aliased to ink so they move together. */
@@ -54,7 +63,7 @@
   --text-2xl: 2.4414rem;
   --text-3xl: 3.0518rem;
   --text-4xl: 3.8147rem;
-  --text-display: clamp(2.5rem, 5vw + 0.75rem, 4.5rem);
+  --text-display: clamp(3rem, 6vw + 1rem, 5.5rem);
   --text-display-s: clamp(2rem, 4vw + 0.5rem, 3.5rem);
 
   /* Easings */

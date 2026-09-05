@@ -250,15 +250,15 @@ export default function PDFUpload() {
                 <Alert
                   className={`border ${
                     message.type === "success"
-                      ? "bg-[var(--color-paper-2)] border-[var(--color-accent)]/30 text-[var(--color-ink)]"
-                      : "bg-[var(--color-paper-2)] border-red-300 text-red-800"
+                      ? "bg-[var(--color-success-soft)] border-[var(--color-success)]/30 text-[var(--color-ink)]"
+                      : "bg-[var(--color-danger-soft)] border-[var(--color-danger)]/30 text-[var(--color-danger)]"
                   }`}
                 >
                   <div className="flex items-start gap-2">
                     {message.type === "success" ? (
-                      <CheckCircle2 className="h-5 w-5 text-[var(--color-accent-deep)] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="h-5 w-5 text-[var(--color-success)] shrink-0 mt-0.5" />
                     ) : (
-                      <Info className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
+                      <Info className="h-5 w-5 text-[var(--color-danger)] shrink-0 mt-0.5" />
                     )}
                     <div>
                       <AlertTitle className="font-bold text-sm">

@@ -56,7 +56,7 @@ const sections: LegalSection[] = [
   {
     heading: "Changes & contact",
     paragraphs: [
-      "We may update these terms from time to time; the latest version always lives on this page. Questions are welcome at hello@medaestheticsbristol.co.uk or 0117 123 4567.",
+      "We may update these terms from time to time; the latest version always lives on this page. Questions are welcome at hello@medaestheticsbristol.co.uk or 07981 084434.",
     ],
   },
 ];

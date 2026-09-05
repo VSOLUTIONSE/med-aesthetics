@@ -5,6 +5,7 @@ import {
   Award,
   Check,
   HeartPulse,
+  Instagram,
   Mail,
   MapPin,
   MessageCircle,
@@ -17,6 +18,9 @@ import { Footer } from "./Footer";
 import { MedspaAssistant } from "./MedspaAssistant";
 import { NavBar } from "./Navbar";
 import { TreatmentCard } from "./TreatmentCard";
+
+const mapUrl =
+  "https://www.google.com/maps/place/MedAesthetics+Bristol/@51.4207682,-2.5642853,18z/data=!4m6!3m5!1s0x48718f8ebfc41b19:0x4e8c958f54b96551!8m2!3d51.420504!4d-2.55935!16s%2Fg%2F11mkc22t1j?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D";
 
 const principles = [
   {
@@ -89,6 +93,27 @@ const treatments = [
   },
 ];
 
+const stories = [
+  {
+    quote:
+      "I was so worried about looking overdone. The consultation put me completely at ease — I left looking like myself, just more rested.",
+    name: "Amelia R.",
+    context: "Anti-wrinkle",
+  },
+  {
+    quote:
+      "Everything was explained before I was asked to decide anything. No pressure, no upsell — that honesty is why I came back.",
+    name: "Priya S.",
+    context: "Skin rejuvenation",
+  },
+  {
+    quote:
+      "Subtle was exactly what I wanted and exactly what I got. Friends just say I look well.",
+    name: "Chloe M.",
+    context: "Dermal fillers",
+  },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)]">
@@ -108,9 +133,9 @@ export default function Home() {
       <NavBar />
 
       <main>
-        {/* Hero — full-bleed clear video; copy sits on its own navy panel */}
+        {/* Hero — full-bleed video, navy display type over a light scrim (keeps bold blue text + CTAs high-contrast) */}
         <section
-          className="relative flex h-[92svh] min-h-[560px] max-h-[900px] items-center overflow-hidden"
+          className="relative flex h-[92svh] min-h-[560px] max-h-[900px] items-center overflow-hidden bg-[var(--color-ink)]"
           aria-labelledby="hero-heading"
         >
           {/* Ambient footage — "Facial treatment close-up" by Gustavo Fring, Pexels (free licence) */}
@@ -124,21 +149,28 @@ export default function Home() {
             className="absolute inset-0 h-full w-full object-cover"
           />
 
+          {/* Light paper scrim — lifts the copy lane so navy type + buttons contrast well against footage */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-paper)]/90 via-[var(--color-paper)]/55 to-[var(--color-paper)]/20" />
+
           <div className="relative z-10 mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
-            <div className="max-w-xl rounded-[var(--radius-xl)] border border-[var(--color-paper)]/60 bg-[var(--color-paper)]/75 p-[var(--space-xl)] shadow-2xl backdrop-blur-lg sm:p-[var(--space-2xl)]">
-              <p className="mb-[var(--space-lg)] text-[var(--text-xs)] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-deep)]">
+            <div className="max-w-xl">
+              <p className="mb-[var(--space-md)] flex items-center gap-3 text-[var(--text-xs)] font-bold uppercase tracking-[0.18em] text-[var(--color-accent-deep)]">
+                <span
+                  aria-hidden="true"
+                  className="h-px w-8 bg-[var(--color-accent-deep)]"
+                />
                 Bespoke aesthetics in Bristol
               </p>
               <h1
                 id="hero-heading"
-                className="font-[var(--font-display)] text-[var(--text-display)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--color-primary)]"
+                className="font-[var(--font-display)] text-[var(--text-display)] font-extrabold leading-[1.03] tracking-[-0.03em] text-[var(--color-primary)]"
               >
                 Clinical expertise.{" "}
                 <span className="text-[var(--color-accent-deep)]">
                   Beautiful results.
                 </span>
               </h1>
-              <p className="mt-[var(--space-lg)] max-w-lg text-[var(--text-base)] leading-[1.8] text-[var(--color-primary)]/85">
+              <p className="mt-[var(--space-lg)] max-w-lg text-[var(--text-base)] font-medium leading-[1.8] text-[var(--color-ink)]/85">
                 Advanced facial aesthetic and skin rejuvenation treatments in a
                 calm, professional setting. Every journey begins with
                 understanding your goals, your features, and what feels right
@@ -149,15 +181,40 @@ export default function Home() {
                   href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-[var(--color-paper)] px-6 py-3 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                  className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-[var(--color-paper)] px-6 py-3 text-sm font-bold rounded-full transition-all duration-[var(--dur-short)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                 >
                   Book appointment <ArrowRight size={15} />
                 </a>
                 <a
                   href="#treatments"
-                  className="inline-flex items-center justify-center border border-[var(--color-primary)]/40 text-[var(--color-primary)] px-6 py-3 text-sm font-semibold rounded-full transition-all duration-[var(--dur-short)] hover:bg-[var(--color-primary)] hover:text-[var(--color-paper)]"
+                  className="inline-flex items-center justify-center border border-[var(--color-primary)]/50 text-[var(--color-primary)] px-6 py-3 text-sm font-bold rounded-full transition-all duration-[var(--dur-short)] hover:bg-[var(--color-primary)] hover:text-[var(--color-paper)]"
                 >
                   Explore treatments
+                </a>
+              </div>
+              <div className="mt-[var(--space-xl)] flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-[var(--color-rule)] pt-[var(--space-lg)]">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold tracking-tight text-[var(--color-ink)]">
+                    5.0
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="text-[var(--text-xs)] tracking-[0.18em] text-[var(--color-accent-deep)]"
+                  >
+                    ★★★★★
+                  </span>
+                  <span className="text-[var(--text-xs)] text-[var(--color-muted)]">
+                    rated by patients
+                  </span>
+                </div>
+                <a
+                  href="https://www.instagram.com/medaestheticsbristol"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-rule)] bg-[var(--color-paper-2)]/95 px-3 py-1.5 text-[var(--text-xs)] font-semibold text-[var(--color-ink)] transition-colors duration-[var(--dur-short)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent-deep)]"
+                >
+                  <Instagram size={13} />
+                  @medaestheticsbristol
                 </a>
               </div>
             </div>
@@ -172,7 +229,7 @@ export default function Home() {
           <div className="mx-auto mb-[var(--space-lg)] h-px w-16 bg-[var(--color-accent)]" />
           <h2
             id="conversation-heading"
-            className="font-[var(--font-display)] mx-auto max-w-3xl text-[var(--text-display-s)] font-bold leading-tight tracking-[-0.02em]"
+            className="font-[var(--font-display)] mx-auto max-w-3xl text-[var(--text-display-s)] font-extrabold leading-tight tracking-[-0.02em]"
           >
             You do not need to know the treatment name before you get in touch.
           </h2>
@@ -220,6 +277,71 @@ export default function Home() {
               {treatments.map((t) => (
                 <TreatmentCard key={t.title} {...t} />
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Patient stories — editorial social proof on powder-gold wash */}
+        <section
+          id="stories"
+          className="bg-[var(--color-accent-soft)] px-[var(--page-gutter)] py-[var(--space-3xl)] lg:py-[var(--space-4xl)]"
+          aria-labelledby="stories-heading"
+        >
+          <div className="max-w-[var(--page-max)] mx-auto">
+            <div className="mb-[var(--space-2xl)] max-w-2xl">
+              <p className="mb-[var(--space-sm)] text-[var(--text-xs)] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-deep)]">
+                Patient stories
+              </p>
+              <h2
+                id="stories-heading"
+                className="font-[var(--font-display)] text-[var(--text-3xl)] font-extrabold leading-tight tracking-[-0.02em]"
+              >
+                Quiet confidence, in their words.
+              </h2>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {stories.map((s) => (
+                <figure
+                  key={s.name}
+                  className="flex h-full flex-col justify-between rounded-[var(--radius-lg)] border border-[var(--color-accent)]/25 bg-[var(--color-paper)] p-[var(--space-lg)]"
+                >
+                  <blockquote className="text-[var(--text-sm)] leading-[1.8] text-[var(--color-ink-2)]">
+                    &ldquo;{s.quote}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-[var(--space-md)] border-t border-[var(--color-rule)] pt-[var(--space-sm)]">
+                    <p className="font-[var(--font-display)] text-[var(--text-sm)] font-bold text-[var(--color-ink)]">
+                      {s.name}
+                    </p>
+                    <p className="text-[var(--text-xs)] text-[var(--color-muted)]">
+                      {s.context}
+                    </p>
+                  </figcaption>
+                </figure>
+              ))}
+              <a
+                href="https://www.instagram.com/medaestheticsbristol"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-full flex-col justify-between rounded-[var(--radius-lg)] bg-[var(--color-ink)] p-[var(--space-lg)] text-[var(--color-paper)] transition-all duration-[var(--dur-short)] hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                <Instagram size={22} className="text-[var(--color-accent)]" />
+                <div className="mt-[var(--space-xl)]">
+                  <p className="font-[var(--font-display)] text-[var(--text-md)] font-bold tracking-[-0.01em]">
+                    Follow the clinic
+                  </p>
+                  <p className="mt-1 text-[var(--text-xs)] leading-[1.7] text-[var(--color-paper)]/70">
+                    Treatment education, aftercare tips and real patient moments
+                    — @medaestheticsbristol
+                  </p>
+                  <span className="mt-[var(--space-md)] inline-flex items-center gap-1.5 text-[var(--text-xs)] font-semibold text-[var(--color-accent)]">
+                    Follow along
+                    <ArrowRight
+                      size={12}
+                      className="transition-transform duration-[var(--dur-short)] group-hover:translate-x-0.5"
+                    />
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
         </section>
@@ -274,7 +396,7 @@ export default function Home() {
                   key={p.title}
                   className="flex gap-5 p-[var(--space-lg)] rounded-[var(--radius-lg)] border border-[var(--color-rule)] hover:border-[var(--color-accent)]/30 transition-colors duration-[var(--dur-short)]"
                 >
-                  <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-accent)]/15 text-[var(--color-accent-deep)]">
+                  <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent-deep)]">
                     {p.icon}
                   </div>
                   <div>
@@ -454,12 +576,12 @@ export default function Home() {
                 id="contact-heading"
                 className="font-[var(--font-display)] max-w-md text-[var(--text-3xl)] font-bold leading-tight tracking-[-0.02em]"
               >
-                Find us in the heart of Clifton.
+                Find us in Bristol.
               </h2>
               <p className="mt-[var(--space-lg)] max-w-md text-[var(--text-base)] leading-[1.8] text-[var(--color-ink-2)]">
-                The clinic sits just off Berkeley Square — a quiet, light-filled
-                space where conversations are never rushed. Send a question any
-                time, or book an appointment and we will take it from there.
+                The clinic is a calm, light-filled space where conversations are
+                never rushed. Send a question any time, or book an appointment
+                and we will take it from there.
               </p>
               <a
                 href="https://facesconsent.com/v1/bookings/aisha-sahi?clinicSlug=medaesthetics-bristol-90bd55420410"
@@ -481,11 +603,24 @@ export default function Home() {
                   <p className="font-semibold text-[var(--color-ink)]">
                     The clinic
                   </p>
-                  <p className="mt-1 text-[var(--color-ink-2)]">
-                    18 Berkeley Square, Clifton
+                  <a
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 block text-[var(--color-ink-2)] hover:text-[var(--color-accent-deep)] transition-colors duration-[var(--dur-short)]"
+                  >
+                    22 Acer Village, Bristol
                     <br />
-                    Bristol, BS8 1HB
-                  </p>
+                    BS14 9BH, United Kingdom
+                  </a>
+                  <a
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-1 text-[var(--text-xs)] font-semibold text-[var(--color-accent-deep)] hover:text-[var(--color-ink)] transition-colors duration-[var(--dur-short)]"
+                  >
+                    Get directions <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               </li>
               <li className="flex items-start gap-3 py-[var(--space-md)]">
@@ -498,10 +633,10 @@ export default function Home() {
                     Call the clinic
                   </p>
                   <a
-                    href="tel:+441171234567"
+                    href="tel:+447981084434"
                     className="mt-1 block text-[var(--color-ink-2)] hover:text-[var(--color-accent-deep)] transition-colors duration-[var(--dur-short)]"
                   >
-                    0117 123 4567
+                    07981 084434
                   </a>
                 </div>
               </li>

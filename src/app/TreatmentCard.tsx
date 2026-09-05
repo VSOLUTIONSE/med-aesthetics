@@ -63,7 +63,9 @@ export const TreatmentCard: React.FC<TreatmentCardProps> = ({
         {href ? (
           <a
             href={href}
-            {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            {...(href.startsWith("http")
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
             className="w-full flex items-center justify-center gap-2 py-2.5 border border-[var(--color-ink)] text-[var(--color-ink)] text-[var(--text-sm)] font-medium rounded-full hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-all duration-[var(--dur-short)]"
           >
             {ctaLabel}
